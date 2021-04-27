@@ -102,6 +102,9 @@
     <ClCompile Include="TileMapTool.cpp">
       <Filter>MainGame\TileMap</Filter>
     </ClCompile>
+    <ClCompile Include="MenuScene.cpp">
+      <Filter>MainGame\Scene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonFunction.h">
@@ -169,6 +172,9 @@
     </ClInclude>
     <ClInclude Include="TileMapTool.h">
       <Filter>MainGame\TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuScene.h">
+      <Filter>MainGame\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

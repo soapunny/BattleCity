@@ -2,6 +2,7 @@
 #include "Image.h"
 #include "TileMapTool.h"
 #include "BattleScene.h"
+#include "MenuScene.h"
 #include "SceneManager.h"
 
 HRESULT MainGame::Init()
@@ -32,8 +33,9 @@ HRESULT MainGame::Init()
 
 	SceneManager::GetSingleton()->AddScene("BattleScene", new BattleScene());
 	SceneManager::GetSingleton()->AddScene("TileMapTool", new TileMapTool());
+	SceneManager::GetSingleton()->AddScene("MenuScene", new MenuScene());
 
-	SceneManager::GetSingleton()->ChangeScene("TileMapTool");
+	SceneManager::GetSingleton()->ChangeScene("MenuScene");
 
 	isInited = true;
 
