@@ -144,9 +144,13 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="GameNode.cpp" />
+    <ClCompile Include="GrenadeItem.cpp" />
+    <ClCompile Include="HelmetItem.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="Iori.cpp" />
+    <ClCompile Include="Item.cpp" />
+    <ClCompile Include="ItemManager.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
@@ -154,10 +158,15 @@
     <ClCompile Include="MissileManager.cpp" />
     <ClCompile Include="PlayerShip.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="ShovelItem.cpp" />
+    <ClCompile Include="StarItem.cpp" />
     <ClCompile Include="Tank.cpp" />
+    <ClCompile Include="TankItem.cpp" />
     <ClCompile Include="TileMapTool.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerManager.cpp" />
+    <ClCompile Include="TwoShotItem.cpp" />
+    <ClCompile Include="WatchItem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BattleScene.h" />
@@ -166,20 +175,29 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="GameNode.h" />
+    <ClInclude Include="GrenadeItem.h" />
+    <ClInclude Include="HelmetItem.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="Iori.h" />
+    <ClInclude Include="Item.h" />
+    <ClInclude Include="ItemManager.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Missile.h" />
     <ClInclude Include="MissileManager.h" />
     <ClInclude Include="PlayerShip.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="ShovelItem.h" />
     <ClInclude Include="Singleton.h" />
+    <ClInclude Include="StarItem.h" />
     <ClInclude Include="Tank.h" />
+    <ClInclude Include="TankItem.h" />
     <ClInclude Include="TileMapTool.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />
+    <ClInclude Include="TwoShotItem.h" />
+    <ClInclude Include="WatchItem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

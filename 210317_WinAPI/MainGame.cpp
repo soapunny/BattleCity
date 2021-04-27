@@ -18,6 +18,28 @@ HRESULT MainGame::Init()
 
 	ImageManager::GetSingleton()->AddImage("EnemyMissile",
 		"Image/구슬.bmp", 20, 20, true, RGB(255, 0, 255));
+	
+	// 투구 아이템 이미지 로드
+	ImageManager::GetSingleton()->AddImage("HelmetItem",
+		"Image/Item/Item1.bmp", 16, 16, 1, 1, true, RGB(255, 0, 255));
+	// 타임 아이템 이미지 로드
+	ImageManager::GetSingleton()->AddImage("WatchItem",
+		"Image/Item/Item2.bmp", 16, 16, 1, 1, true, RGB(255, 0, 255));
+	// 삽 아이템 이미지 로드
+	ImageManager::GetSingleton()->AddImage("ShovelItem",
+		"Image/Item/Item3.bmp", 16, 16, 1, 1, true, RGB(255, 0, 255));
+	// 스타 아이템 이미지 로드
+	ImageManager::GetSingleton()->AddImage("StarItem",
+		"Image/Item/Item4.bmp", 16, 16, 1, 1, true, RGB(255, 0, 255));
+	// 수류탄 아이템 이미지 로드
+	ImageManager::GetSingleton()->AddImage("GrenadeItem",
+		"Image/Item/Item5.bmp", 16, 16, 1, 1, true, RGB(255, 0, 255));
+	// 탱크 아이템 이미지 로드
+	ImageManager::GetSingleton()->AddImage("TankItem",
+		"Image/Item/Item6.bmp", 16, 16, 1, 1, true, RGB(255, 0, 255));
+	// 연사 아이템 이미지 로드
+	ImageManager::GetSingleton()->AddImage("TwoShotItem",
+		"Image/Item/Item7.bmp", 16, 16, 1, 1, true, RGB(255, 0, 255));
 
 	// 메인게임의 초기화 함수
 	//hTimer = (HANDLE)SetTimer(g_hWnd, 0, 1, NULL);

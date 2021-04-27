@@ -9,6 +9,13 @@
 #include <bitset>
 #include <map>
 
+#define SAMPLE_TILE_X	20
+#define SAMPLE_TILE_Y	9
+#define TILE_SIZE		32
+
+//메인 그리기 공간 정보
+#define TILE_X			20
+#define TILE_Y			20
 using namespace std;
 
 #include "KeyManager.h"
