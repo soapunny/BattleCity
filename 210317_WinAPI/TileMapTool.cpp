@@ -8,7 +8,7 @@ HRESULT TileMapTool::Init()
 {
     SetClientRect(g_hWnd, TILEMAPTOOLSIZE_X, TILEMAPTOOLSIZE_Y);
 
-    sampleTile = ImageManager::GetSingleton()->AddImage("基敲鸥老", "Image/maptiles.bmp", 640, 288, SAMPLE_TILE_X, SAMPLE_TILE_Y, false, NULL);
+    sampleTile = ImageManager::GetSingleton()->AddImage("基敲鸥老", "Image/SamlpTile1.bmp", 80, 80, SAMPLE_TILE_X, SAMPLE_TILE_Y, false, NULL);
 
     for (int i = 0; i < TILE_Y; i++)
     {

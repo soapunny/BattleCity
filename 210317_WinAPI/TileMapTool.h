@@ -3,9 +3,9 @@
 
 //샘플 타일 정보
 //전체크기 640 * 288
-#define SAMPLE_TILE_X	20
-#define SAMPLE_TILE_Y	9
-#define TILE_SIZE		32
+#define SAMPLE_TILE_X	10
+#define SAMPLE_TILE_Y	10
+#define TILE_SIZE		8
 
 //메인 그리기 공간 정보
 #define TILE_X			20
