@@ -11,7 +11,6 @@ HRESULT MenuScene::Init()
 	selectIcon->Init("Image/selectIcon.bmp", 30, 30);
 
 	selectNum = 0;
-	moveIcon = 0;
 
 	return S_OK;
 }
@@ -25,17 +24,33 @@ void MenuScene::Release()
 void MenuScene::Update()
 {
 	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_UP))
-	{
-		selectNum = 0;
+	{	
+		switch (selectNum)
+		{
+		case P2:
+			selectNum = P1;
+			break;
+		case CONSTRUCTION:
+			selectNum = P2;
+			break;
+		}
 	}
 	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_DOWN))
 	{	
-		selectNum = 2;
+		switch (selectNum)
+		{
+		case P1:
+			selectNum = P2;
+			break;
+		case P2:
+			selectNum = CONSTRUCTION;
+			break;
+		}
 	}
 
 	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_RETURN))
 	{
-		if (moveIcon == 106)
+		if (selectNum == CONSTRUCTION)
 		{
 			SceneManager::GetSingleton()->ChangeScene("TileMapTool");
 		}
@@ -51,10 +66,7 @@ void MenuScene::Render(HDC hdc)
 
 	if (selectIcon)
 	{
-		if (selectNum == 1) moveIcon = 53;
-		if (selectNum == 2) moveIcon = 106;
-
-		selectIcon->Render(hdc, 320, 405 + moveIcon/*(selectNum * 53)*/);
+		selectIcon->Render(hdc, 320, 405 + selectNum * 53);
 	}
 }
 
