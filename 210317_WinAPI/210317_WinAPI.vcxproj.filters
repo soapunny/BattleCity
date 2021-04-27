@@ -19,12 +19,6 @@
     <Filter Include="2D Framework">
       <UniqueIdentifier>{fae288c9-1a89-4141-bbae-e4f3680953fb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MainGame\KOF_Character">
-      <UniqueIdentifier>{c26ceddf-7bbf-443c-bf68-f846524a0680}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="MainGame\Enemy">
-      <UniqueIdentifier>{6e5df244-c6a3-43cb-b9d0-02b9ddf1a72c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MainGame\Missile">
       <UniqueIdentifier>{5a86d586-c7fc-46be-93af-bd645e44e8f4}</UniqueIdentifier>
     </Filter>
@@ -37,6 +31,12 @@
     <Filter Include="MainGame\Scene">
       <UniqueIdentifier>{cb2e4421-417d-4368-8984-7b1d46bcc581}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\Tank">
+      <UniqueIdentifier>{c311b03a-84cc-4267-9232-d1b81125ecae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MainGame\Tank\Factory">
+      <UniqueIdentifier>{daf29bbd-34ca-4056-8f25-5a1cb412649d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -45,23 +45,11 @@
     <ClCompile Include="MainGame.cpp">
       <Filter>MainGame</Filter>
     </ClCompile>
-    <ClCompile Include="Tank.cpp">
-      <Filter>MainGame</Filter>
-    </ClCompile>
     <ClCompile Include="GameNode.cpp">
       <Filter>2D Framework</Filter>
     </ClCompile>
     <ClCompile Include="Image.cpp">
       <Filter>2D Framework</Filter>
-    </ClCompile>
-    <ClCompile Include="Iori.cpp">
-      <Filter>MainGame\KOF_Character</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyManager.cpp">
-      <Filter>MainGame\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>MainGame\Enemy</Filter>
     </ClCompile>
     <ClCompile Include="Missile.cpp">
       <Filter>MainGame\Missile</Filter>
@@ -81,9 +69,6 @@
     <ClCompile Include="TimerManager.cpp">
       <Filter>2D Framework\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="PlayerShip.cpp">
-      <Filter>MainGame</Filter>
-    </ClCompile>
     <ClCompile Include="SceneManager.cpp">
       <Filter>2D Framework\Manager</Filter>
     </ClCompile>
@@ -92,6 +77,27 @@
     </ClCompile>
     <ClCompile Include="BattleScene.cpp">
       <Filter>MainGame\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Tank.cpp">
+      <Filter>MainGame\Tank</Filter>
+    </ClCompile>
+    <ClCompile Include="TankManager.cpp">
+      <Filter>MainGame\Tank</Filter>
+    </ClCompile>
+    <ClCompile Include="YellowTank.cpp">
+      <Filter>MainGame\Tank</Filter>
+    </ClCompile>
+    <ClCompile Include="WhiteTank.cpp">
+      <Filter>MainGame\Tank</Filter>
+    </ClCompile>
+    <ClCompile Include="GreenTank.cpp">
+      <Filter>MainGame\Tank</Filter>
+    </ClCompile>
+    <ClCompile Include="PurpleTank.cpp">
+      <Filter>MainGame\Tank</Filter>
+    </ClCompile>
+    <ClCompile Include="TankFactory.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -104,9 +110,6 @@
     <ClInclude Include="MainGame.h">
       <Filter>MainGame</Filter>
     </ClInclude>
-    <ClInclude Include="Tank.h">
-      <Filter>MainGame</Filter>
-    </ClInclude>
     <ClInclude Include="GameNode.h">
       <Filter>2D Framework</Filter>
     </ClInclude>
@@ -115,15 +118,6 @@
     </ClInclude>
     <ClInclude Include="Image.h">
       <Filter>2D Framework</Filter>
-    </ClInclude>
-    <ClInclude Include="Iori.h">
-      <Filter>MainGame\KOF_Character</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyManager.h">
-      <Filter>MainGame\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>MainGame\Enemy</Filter>
     </ClInclude>
     <ClInclude Include="Missile.h">
       <Filter>MainGame\Missile</Filter>
@@ -143,9 +137,6 @@
     <ClInclude Include="TimerManager.h">
       <Filter>2D Framework\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerShip.h">
-      <Filter>MainGame</Filter>
-    </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>2D Framework\Manager</Filter>
     </ClInclude>
@@ -154,6 +145,27 @@
     </ClInclude>
     <ClInclude Include="BattleScene.h">
       <Filter>MainGame\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Tank.h">
+      <Filter>MainGame\Tank</Filter>
+    </ClInclude>
+    <ClInclude Include="TankManager.h">
+      <Filter>MainGame\Tank</Filter>
+    </ClInclude>
+    <ClInclude Include="YellowTank.h">
+      <Filter>MainGame\Tank</Filter>
+    </ClInclude>
+    <ClInclude Include="WhiteTank.h">
+      <Filter>MainGame\Tank</Filter>
+    </ClInclude>
+    <ClInclude Include="GreenTank.h">
+      <Filter>MainGame\Tank</Filter>
+    </ClInclude>
+    <ClInclude Include="PurpleTank.h">
+      <Filter>MainGame\Tank</Filter>
+    </ClInclude>
+    <ClInclude Include="TankFactory.h">
+      <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

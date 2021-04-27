@@ -19,6 +19,23 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->AddImage("EnemyMissile",
 		"Image/구슬.bmp", 20, 20, true, RGB(255, 0, 255));
 
+	ImageManager::GetSingleton()->AddImage("Tank",
+		"Image/Enemy/Enemy.bmp", 512, 384, 8, 6,
+		true, RGB(255, 0, 255));
+
+	ImageManager::GetSingleton()->AddImage("MissileDown",
+		"Image/Bullet/Missile_Down.bmp", 3, 4, 1, 1,
+		true, RGB(255, 0, 255));
+	ImageManager::GetSingleton()->AddImage("MissileUp",
+		"Image/Bullet/Missile_Up.bmp", 3, 4, 1, 1,
+		true, RGB(255, 0, 255));
+	ImageManager::GetSingleton()->AddImage("MissileLeft",
+		"Image/Bullet/Missile_Left.bmp", 4, 3, 1, 1,
+		true, RGB(255, 0, 255));
+	ImageManager::GetSingleton()->AddImage("MissileRight",
+		"Image/Bullet/Missile_Right.bmp", 4, 3, 1, 1,
+		true, RGB(255, 0, 255));
+
 	// 메인게임의 초기화 함수
 	//hTimer = (HANDLE)SetTimer(g_hWnd, 0, 1, NULL);
 
@@ -33,7 +50,7 @@ HRESULT MainGame::Init()
 	SceneManager::GetSingleton()->AddScene("BattleScene", new BattleScene());
 	SceneManager::GetSingleton()->AddScene("TileMapTool", new TileMapTool());
 
-	SceneManager::GetSingleton()->ChangeScene("TileMapTool");
+	SceneManager::GetSingleton()->ChangeScene("BattleScene");
 
 
 	isInited = true;

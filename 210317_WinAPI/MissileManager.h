@@ -8,16 +8,14 @@ class MissileManager : public GameNode
 {
 private:
 	vector<Missile*> vMissiles;
-	vector<Missile*>::iterator itMissiles;
-
-	Enemy* owner;
+	int maxMissileCnt;
 
 public:
-	HRESULT Init(Enemy* owner);
+	HRESULT Init(PLAYER_TYPE playerType);
 	void Release();
 	void Update();
 	void Render(HDC hdc);
 
-	void Fire();
+	void Fire(FPOINT startPos,float angle, MOVE_DIRECTION moveDirection);
 };
 

@@ -1,10 +1,7 @@
 #include "BattleScene.h"
-#include "Tank.h"
-#include "Enemy.h"
-#include "EnemyManager.h"
+#include "TankManager.h"
 #include "Missile.h"
 #include "Image.h"
-#include "PlayerShip.h"
 
 
 HRESULT BattleScene::Init()
@@ -12,47 +9,26 @@ HRESULT BattleScene::Init()
 	bin = new Image();
 	bin->Init("Image/backGround_01.bmp", WINSIZE_X, WINSIZE_Y);
 
-	tank = new Tank();
-	tank->Init();
-
-	enemyMgr = new EnemyManager();
-	enemyMgr->Init();
-
-	playerShip = new PlayerShip();
-	playerShip->Init();
-
+	tankManager = new TankManager();
+	tankManager->Init();
 
 	return S_OK;
 }
 
 void BattleScene::Release()
 {
-	SAFE_RELEASE(playerShip);
 	SAFE_RELEASE(bin);
-	SAFE_RELEASE(tank);
-	SAFE_RELEASE(enemyMgr);
+	SAFE_RELEASE(tankManager);
 }
 
 void BattleScene::Update()
 {
-	if (tank)
+	if (tankManager)
 	{
-		//tank->Update();
+		tankManager->Update();
 	}
 
 	float currTime1 = TimerManager::GetSingleton()->GetCurrTime();
-
-	if (enemyMgr)
-	{
-		enemyMgr->Update();
-	}
-
-	if (playerShip)
-	{
-		playerShip->Update();
-	}
-
-	CheckCollision();
 }
 
 void BattleScene::Render(HDC hdc)
@@ -62,19 +38,9 @@ void BattleScene::Render(HDC hdc)
 		bin->Render(hdc/*, -100, 100*/);
 	}
 
-	if (tank)
+	if (tankManager)
 	{
-		tank->Render(hdc);
-	}
-
-	if (playerShip)
-	{
-		playerShip->Render(hdc);
-	}
-
-	if (enemyMgr)
-	{
-		enemyMgr->Render(hdc);
+		tankManager->Render(hdc);
 	}
 }
 
@@ -86,7 +52,7 @@ void BattleScene::CheckCollision()
 	FPOINT missilePos;
 	float x, y;
 	int r1, r2;
-	Missile* missileArray = tank->GetMissile();
+	//Missile* missileArray = tank->GetMissile();
 
 	/*for (int i = 0; i < enemyCount; i++)
 	{

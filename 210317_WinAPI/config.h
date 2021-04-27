@@ -38,8 +38,8 @@ typedef struct tagTile
 	int frameY;
 }TILE_INFO;
 
-//typedef tagFPoint FPOINT2;
-//typedef tagFPoint* PFPOINT2;
+enum PLAYER_TYPE { FIRST_PLAYER, SECOND_PLAYER, ENEMY_PLAYER, END_PLAYER_TYPE };
+enum MOVE_DIRECTION { UP_WARD = 0, LEFT_WARD = 2, DOWN_WARD = 4, RIGHT_WARD = 6, END_MOVE_DIRECTION = 8 };
 
 extern HWND g_hWnd;
 extern HINSTANCE g_hInstance;

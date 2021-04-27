@@ -4,7 +4,7 @@
 //기존 MainGame 클래스의 내용을 이동
 
 class PlayerShip;
-class Tank;
+class TankManager;
 class EnemyManager;
 class Image;
 class BattleScene : public GameNode
@@ -12,7 +12,7 @@ class BattleScene : public GameNode
 private:
 	Image* bin;
 
-	Tank* tank;
+	TankManager* tankManager;
 	EnemyManager* enemyMgr;
 	PlayerShip* playerShip;
 public:

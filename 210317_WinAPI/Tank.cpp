@@ -1,175 +1,213 @@
 #include "CommonFunction.h"
 #include "Tank.h"
-#include "Missile.h"
+#include "MissileManager.h"
+#include "Image.h"
 
 HRESULT Tank::Init()
 {
 	pos.x = WINSIZE_X / 2;
 	pos.y = WINSIZE_Y;
-	size = 80;
-	attackValue = 10;
+	size = 64;
+	powerLevel = 1;
 	name = "탱크";
+	moveSpeed = 1;
 	shape = GetRectToCenter(pos.x, pos.y, size, size);
+	playerType = PLAYER_TYPE::FIRST_PLAYER;
+
+	moveDirection = MOVE_DIRECTION::UP_WARD;
 
 	// 포신
-	barrelSize = 100;
+	barrelSize = size / 2;
+	barrelAngle = PI / 2;
 	barrelEnd.x = pos.x;
-	barrelEnd.y = pos.y - barrelSize;
-	barrelAngle = 3.14f / 4.0f;
+	barrelEnd.y = pos.y + barrelSize;
 
 	// 미사일
-	missileCount = 300;
-	missile = new Missile[missileCount];
-	for (int i = 0; i < missileCount; i++)
-	{
-		missile[i].Init(nullptr);
-	}
-
-	//for (int i = 0; i < missileCount; i++)
-	//{
-	//	missile[i] = new Missile();
-	//	missile[i]->Init();
-	//}
-
-	//missile = new Missile();
-	//missile->Init();
+	missileManager = new MissileManager();
+	missileManager->Init(playerType);
 
 	return S_OK;
 }
 
 void Tank::Release()
 {
-	for (int i = 0; i < missileCount; i++)
-	{
-		missile[i].Release();
-	}
-	delete[] missile;
-
-	//for (int i = 0; i < missileCount; i++)
-	//{
-	//	missile[i]->Release();
-	//}
-	//delete[] missile;
-
-	//missile->Release();
-	//delete missile;
+	SAFE_RELEASE(missileManager);
 }
 
 void Tank::Update()
 {
-	if (KeyManager::GetSingleton()->IsOnceKeyDown('G'))
+	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_SPACE))
 	{
-		//FireFollowTarget(&enemy[0]);
-	}
-	else if (KeyManager::GetSingleton()->IsOnceKeyDown('F'))
-	{
-		FireSkill_01();
-	}
-	else if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_SPACE))
-	{
-		Fire();
+		missileManager->Fire(this->barrelEnd, this->barrelAngle, moveDirection);
 	}
 
-	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_LEFT))
+	if (playerType >= PLAYER_TYPE::FIRST_PLAYER && playerType <= PLAYER_TYPE::SECOND_PLAYER)
 	{
-		RotateBarrel(0.07f);
+		Move();
 	}
-	else if (KeyManager::GetSingleton()->IsStayKeyDown(VK_RIGHT))
+	else if (playerType == PLAYER_TYPE::ENEMY_PLAYER)
 	{
-		RotateBarrel(-0.07f);
+		MoveRandom();
 	}
 
-	// 포신 각도에 따른 좌표 계산
-	barrelEnd.x = pos.x + cosf(barrelAngle) * barrelSize;
-	barrelEnd.y = pos.y - (sinf(barrelAngle) * barrelSize);
-
-	for (int i = 0; i < missileCount; i++)
-	{
-		missile[i].Update();
-	}
+	missileManager->Update();
 }
 
 void Tank::Render(HDC hdc)
 {
 	// 몸통
-	Ellipse(hdc, shape.left, shape.top, shape.right, shape.bottom);
+	image->FrameRender(hdc, pos.x, pos.y, curFrame.x, curFrame.y, true);
 
 	// 포신
 	MoveToEx(hdc, pos.x, pos.y, NULL);
 	LineTo(hdc, barrelEnd.x, barrelEnd.y);
 
 	// 미사일
-	for (int i = 0; i < missileCount; i++)
-	{
-		missile[i].Render(hdc);
-	}
-}
-
-void Tank::RotateBarrel(float angle)
-{
-	barrelAngle += angle;
+	missileManager->Render(hdc);
 }
 
 void Tank::Move()
 {
-}
-
-void Tank::Fire()
-{
-	// 미사일 발사
-	// 상태만 변경
-	for (int i = 0; i < missileCount; i++)
+	if (KeyManager::GetSingleton()->IsStayKeyDown('W'))
 	{
-		if (missile[i].GetIsFired() == false)
-		{
-			missile[i].SetType(Missile::TYPE::Normal);
-			missile[i].SetPos(barrelEnd);
-			missile[i].SetIsFired(true);
-			missile[i].SetAngle(barrelAngle);
-
-			break;
+		moveTimer += TimerManager::GetSingleton()->GetElapsedTime();
+		if(moveTimer >= 0.1f){
+			if (!(curFrame.x >= MOVE_DIRECTION::UP_WARD && curFrame.x < MOVE_DIRECTION::LEFT_WARD))
+			{
+				moveDirection = MOVE_DIRECTION::UP_WARD;
+				curFrame.x = MOVE_DIRECTION::UP_WARD;
+			}
+			else
+			{
+				curFrame.x += 1;
+				if (!(curFrame.x >= MOVE_DIRECTION::UP_WARD && curFrame.x < MOVE_DIRECTION::LEFT_WARD))
+				{
+					curFrame.x = MOVE_DIRECTION::UP_WARD;
+				}
+			}
+			ChangeBarrel(moveDirection);
+			pos.y -= moveSpeed;
+			if(pos.y < size / 2)
+			{
+				pos.y = size / 2;
+			}
+			moveTimer = 0.0f;
 		}
+	}
+	else if (KeyManager::GetSingleton()->IsStayKeyDown('S'))
+	{
+		moveTimer += TimerManager::GetSingleton()->GetElapsedTime();
+		if (moveTimer >= 0.1f) {
+			if (!(curFrame.x >= MOVE_DIRECTION::DOWN_WARD && curFrame.x < MOVE_DIRECTION::RIGHT_WARD))
+			{
+				moveDirection = MOVE_DIRECTION::DOWN_WARD;
+				curFrame.x = MOVE_DIRECTION::DOWN_WARD;
+			}
+			else
+			{
+				curFrame.x += 1;
+				if (!(curFrame.x >= MOVE_DIRECTION::DOWN_WARD && curFrame.x < MOVE_DIRECTION::RIGHT_WARD))
+				{
+					curFrame.x = MOVE_DIRECTION::DOWN_WARD;
+				}
+			}
+			ChangeBarrel(moveDirection);
+			pos.y += moveSpeed;
+			if (pos.y > WINSIZE_Y - size / 2)
+			{
+				pos.y = WINSIZE_Y - size / 2;
+			}
+			moveTimer = 0.0f;
+		}
+	}
+	else if (KeyManager::GetSingleton()->IsStayKeyDown('A'))
+	{
+		moveTimer += TimerManager::GetSingleton()->GetElapsedTime();
+		if (moveTimer >= 0.1f) {
+			if (!(curFrame.x >= MOVE_DIRECTION::LEFT_WARD && curFrame.x < MOVE_DIRECTION::DOWN_WARD))
+			{
+				moveDirection = MOVE_DIRECTION::LEFT_WARD;
+				curFrame.x = MOVE_DIRECTION::LEFT_WARD;
+			}
+			else
+			{
+				curFrame.x += 1;
+				if (!(curFrame.x >= MOVE_DIRECTION::LEFT_WARD && curFrame.x < MOVE_DIRECTION::DOWN_WARD))
+				{
+					curFrame.x = MOVE_DIRECTION::LEFT_WARD;
+				}
+			}
+			ChangeBarrel(moveDirection);
+			pos.x -= moveSpeed;
+			if (pos.x < size / 2)
+			{
+				pos.x = size / 2;
+			}
+			moveTimer = 0.0f;
+		}
+	}
+	else if (KeyManager::GetSingleton()->IsStayKeyDown('D'))
+	{
+		moveTimer += TimerManager::GetSingleton()->GetElapsedTime();
+		if (moveTimer >= 0.1f) {
+			if (!(curFrame.x >= MOVE_DIRECTION::RIGHT_WARD && curFrame.x < MOVE_DIRECTION::END_MOVE_DIRECTION))
+			{
+				moveDirection = MOVE_DIRECTION::RIGHT_WARD;
+				curFrame.x = MOVE_DIRECTION::RIGHT_WARD;
+			}
+			else
+			{
+				curFrame.x += 1;
+				if (!(curFrame.x >= MOVE_DIRECTION::RIGHT_WARD && curFrame.x < MOVE_DIRECTION::END_MOVE_DIRECTION))
+				{
+					curFrame.x = MOVE_DIRECTION::RIGHT_WARD;
+				}
+			}
+			ChangeBarrel(moveDirection);
+			pos.x += moveSpeed;
+			if (pos.x > WINSIZE_X - size / 2)
+			{
+				pos.x = WINSIZE_X - size / 2;
+			}
+			moveTimer = 0.0f;
+		}
+	}
+	else
+	{
+		moveTimer = 0.0f;
 	}
 }
 
-void Tank::FireSkill_01()
+void Tank::MoveRandom()
 {
-	// 1. 미사일을 36발을 쏘고 일정 높이 이상 올라가면 36방향으로 퍼지게 한다.
-	int firedCount = 0;
-	for (int i = 0; i < missileCount; i++)
-	{
-		if (firedCount < 36 && missile[i].GetIsFired() == false)
-		{
-			missile[i].SetType(Missile::TYPE::Skill_01);
-			missile[i].SetPos(barrelEnd);
-			missile[i].SetIsFired(true);
-			missile[i].SetAngle(barrelAngle/* + (firedCount * 0.05f)*/);
-			missile[i].SetFireIndex(firedCount);
 
-			firedCount++;
-		}
-	}
-
-	// 2. 미사일을 한발 쏘고 일정 높이 이상 올라가면 36발을 호출한다.
 }
 
-void Tank::FireFollowTarget(Enemy* target)
+void Tank::ChangeBarrel(MOVE_DIRECTION tankMove)
 {
-	for (int i = 0; i < missileCount; i++)
+	switch (tankMove)
 	{
-		if (missile[i].GetIsFired() == false)
-		{
-			missile[i].SetType(Missile::TYPE::FollowTarget);
-			missile[i].SetPos(barrelEnd);
-			missile[i].SetIsFired(true);
-			missile[i].SetAngle(barrelAngle);
-			missile[i].SetTarget(target);
-
-			break;
-		}
+	case MOVE_DIRECTION::UP_WARD:
+		barrelEnd.x = pos.x;
+		barrelEnd.y = pos.y - barrelSize;
+		barrelAngle = PI / 2;
+		break;
+	case MOVE_DIRECTION::DOWN_WARD:
+		barrelEnd.x = pos.x;
+		barrelEnd.y = pos.y + barrelSize;
+		barrelAngle = PI*3 / 2;
+		break;
+	case MOVE_DIRECTION::LEFT_WARD:
+		barrelEnd.x = pos.x - barrelSize;
+		barrelEnd.y = pos.y;
+		barrelAngle = PI;
+		break;
+	case MOVE_DIRECTION::RIGHT_WARD:
+		barrelEnd.x = pos.x + barrelSize;
+		barrelEnd.y = pos.y;
+		barrelAngle = 0.0f;
+		break;
 	}
 }
 
-void Tank::Dead()
-{
-}
+

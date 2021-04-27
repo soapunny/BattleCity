@@ -1,52 +1,55 @@
 #pragma once
 #include "GameNode.h"
-//#include "Missile.h"
 
-/*
-	is-a 관계		탱크는 게임노드이다.
-	has-a 관계		탱크는 미사일을 가지고 있다.
-*/
-
-class Enemy;
-class Missile;		// 전방선언
+class MissileManager;		// 전방선언
+class Image;
 class Tank : public GameNode
 {
-private:
+public:
+	enum TANK_TYPE { WHITE_TANK, YELLOW_TANK, GREEN_TANK, PURPLE_TANK, END_TANK_TYPE };
+protected:
 	// 속성 : 멤버변수
 	FPOINT pos;
 	int size;
-	float attackValue;
+	float powerLevel;
+	int moveSpeed;
 	string name;
 	RECT shape;
+	Image* image;
+	bool isAlive;
+
+	PLAYER_TYPE playerType;
+	MOVE_DIRECTION moveDirection;
 
 	// 포신
 	// 포신의 시작점, 끝점
 	FPOINT barrelEnd;
 	int barrelSize;
-	float barrelAngle;		// 단위	: 도 (degree)		0	~ 180	~ 360
-							//		: 라디안 (radian)	0f	~ 3.14f	~ 6.28f
+	float barrelAngle;		
+
+	POINT curFrame;
+	POINT maxFrame;
 
 	// 미사일
-	int missileCount;
-	//Missile* missile[3];	// 1
-	Missile* missile;		// 2
+	MissileManager* missileManager;		// 2
+
+	//타이머
+	float moveTimer;
 
 public:
-	HRESULT Init();
-	void Release();		
-	void Update();		
-	void Render(HDC hdc);
+	virtual HRESULT Init();
+	virtual void Release();		
+	virtual void Update();		
+	virtual void Render(HDC hdc);
 
-	void RotateBarrel(float angle);
-	void Move();
-	void Fire();
-	void FireSkill_01();
-	void FireFollowTarget(Enemy* target);
-	void Dead();
+	virtual void Move();
+	virtual void MoveRandom();
+	virtual void ChangeBarrel(MOVE_DIRECTION tankMove);
 
 	// get, set
 	FPOINT GetPos() { return this->pos; }
-	int GetMissileCount() { return this->missileCount; }
-	Missile* GetMissile() { return this->missile; }
+	MissileManager* GetMissileManager() { return this->missileManager; }
+	inline void SetAlive(bool isAlive) { this->isAlive = isAlive; }
+	inline bool GetAlive() { return this->isAlive; }
 };
 

@@ -141,45 +141,49 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BattleScene.cpp" />
-    <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="GameNode.cpp" />
+    <ClCompile Include="GreenTank.cpp" />
     <ClCompile Include="Image.cpp" />
     <ClCompile Include="ImageManager.cpp" />
-    <ClCompile Include="Iori.cpp" />
     <ClCompile Include="KeyManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainGame.cpp" />
     <ClCompile Include="Missile.cpp" />
     <ClCompile Include="MissileManager.cpp" />
-    <ClCompile Include="PlayerShip.cpp" />
+    <ClCompile Include="PurpleTank.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Tank.cpp" />
+    <ClCompile Include="TankFactory.cpp" />
+    <ClCompile Include="TankManager.cpp" />
     <ClCompile Include="TileMapTool.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerManager.cpp" />
+    <ClCompile Include="WhiteTank.cpp" />
+    <ClCompile Include="YellowTank.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BattleScene.h" />
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="config.h" />
-    <ClInclude Include="Enemy.h" />
-    <ClInclude Include="EnemyManager.h" />
     <ClInclude Include="GameNode.h" />
+    <ClInclude Include="GreenTank.h" />
     <ClInclude Include="Image.h" />
     <ClInclude Include="ImageManager.h" />
-    <ClInclude Include="Iori.h" />
     <ClInclude Include="KeyManager.h" />
     <ClInclude Include="MainGame.h" />
     <ClInclude Include="Missile.h" />
     <ClInclude Include="MissileManager.h" />
-    <ClInclude Include="PlayerShip.h" />
+    <ClInclude Include="PurpleTank.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Tank.h" />
+    <ClInclude Include="TankFactory.h" />
+    <ClInclude Include="TankManager.h" />
     <ClInclude Include="TileMapTool.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />
+    <ClInclude Include="WhiteTank.h" />
+    <ClInclude Include="YellowTank.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

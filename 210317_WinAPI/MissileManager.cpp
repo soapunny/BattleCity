@@ -1,18 +1,14 @@
 #include "MissileManager.h"
 #include "Missile.h"
 
-HRESULT MissileManager::Init(Enemy* owner)
+HRESULT MissileManager::Init(PLAYER_TYPE playerType)
 {
-    this->owner = owner;
-
-    vMissiles.resize(50);
-    vector<Missile*>::iterator it;
-    for (it = vMissiles.begin(); it != vMissiles.end(); it++)
+    maxMissileCnt = 5;
+    vMissiles.resize(maxMissileCnt);
+    for (int i = 0; i < vMissiles.size(); i++)
     {
-        (*it) = new Missile();
-        (*it)->Init(this->owner);
-
-        // 미사일 매니저를 들고 있는 적 객체의 정보를 전달
+        vMissiles[i] = new Missile();
+        vMissiles[i]->Init(playerType);
     }
 
     return S_OK;
@@ -20,52 +16,44 @@ HRESULT MissileManager::Init(Enemy* owner)
 
 void MissileManager::Release()
 {
-    vector<Missile*>::iterator it;
-    for (it = vMissiles.begin(); it != vMissiles.end(); it++)
+    for (auto lpMissile : vMissiles)
     {
-        (*it)->Release();
-        delete (*it);
-        (*it) = nullptr;
+        SAFE_RELEASE(lpMissile);
     }
-    vMissiles.clear();
 }
 
 void MissileManager::Update()
 {
-    for (int i = 0; i < vMissiles.size(); i++)
+    for (auto lpMissile : vMissiles)
     {
-        vMissiles[i]->Update();
+        if (lpMissile->GetIsFired())
+        {
+            lpMissile->Update();
+        }
     }
-
-    //vector<Missile*>::iterator it;
-    //for (it = vMissiles.begin(); it != vMissiles.end(); it++)
-    //{
-    //    (*it)->Update();
-    //}
 }
 
 void MissileManager::Render(HDC hdc)
 {
-    for (int i = 0; i < vMissiles.size(); i++)
+    for (auto lpMissile : vMissiles)
     {
-        vMissiles[i]->Render(hdc);
+        if(lpMissile->GetIsFired())
+        { 
+            lpMissile->Render(hdc);
+        }
     }
-    //vector<Missile*>::iterator it;
-    //for (it = vMissiles.begin(); it != vMissiles.end(); it++)
-    //{
-    //    (*it)->Render(hdc);
-    //}
 }
 
-void MissileManager::Fire()
+void MissileManager::Fire(FPOINT startPos, float angle, MOVE_DIRECTION moveDirection)
 {
-    vector<Missile*>::iterator it;
-    for (it = vMissiles.begin(); it != vMissiles.end(); it++)
+    for (Missile* lpMissile : vMissiles)
     {
-        if ((*it)->GetIsFired() == false)
+        if (! (lpMissile->GetIsFired()))
         {
-            (*it)->SetIsFired(true);
-            (*it)->SetAngle(DegToRad (-90));            
+            lpMissile->SetIsFired(true);
+            lpMissile->SetPos(startPos);
+            lpMissile->SetAngle(angle);
+            lpMissile->SetMoveDirection(moveDirection);
             break;
         }
     }
