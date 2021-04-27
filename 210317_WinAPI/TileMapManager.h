@@ -2,12 +2,11 @@
 #include "GameNode.h"
 #include <vector>
 
-class TileMapTool;
+class TileMap;
 class TileMapManager : public GameNode
 {
 private:
-	vector<TileMapTool*> vTileMaps;
-
+	vector<TileMap*> vTileMaps;
 public:
 	HRESULT Init(); 
 	void Release();

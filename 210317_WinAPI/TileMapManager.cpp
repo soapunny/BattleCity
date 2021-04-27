@@ -1,9 +1,9 @@
 #include "TileMapManager.h"
-#include "TileMapTool.h"
+#include "TileMap.h"
 
 HRESULT TileMapManager::Init()
 {
-	vTileMaps.push_back(new TileMapTool());
+	vTileMaps.push_back(new TileMap());
 	vTileMaps[0]->Init(); 
 
 	return S_OK;
@@ -11,7 +11,7 @@ HRESULT TileMapManager::Init()
 
 void TileMapManager::Release()
 {
-    vector<TileMapTool*>::iterator it;
+    vector<TileMap*>::iterator it;
     for (it = vTileMaps.begin(); it != vTileMaps.end(); it++)
     {
         (*it)->Release();  
@@ -22,7 +22,7 @@ void TileMapManager::Release()
 
 void TileMapManager::Update()
 {
-    vector<TileMapTool*>::iterator it;
+    vector<TileMap*>::iterator it;
     for (it = vTileMaps.begin(); it != vTileMaps.end(); it++)
     { 
         (*it)->Update();
@@ -31,7 +31,7 @@ void TileMapManager::Update()
 
 void TileMapManager::Render(HDC hdc)
 {
-    vector<TileMapTool*>::iterator it;
+    vector<TileMap*>::iterator it;
     for (it = vTileMaps.begin(); it != vTileMaps.end(); it++)
     {
         (*it)->Render(hdc);

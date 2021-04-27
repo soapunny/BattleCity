@@ -11,7 +11,6 @@
 #define TILE_X			20
 #define TILE_Y			20
 
-enum TILEMAPTYPE { GROUND, BROWNBRICK, GRAYBRICK, FOREST, RIVER, ICEFILED };	// ¶¥, º®µ¹, ½£, °­, ¾óÀ½¶¥
 class Image;
 class TileMapTool : public GameNode
 {
