@@ -155,6 +155,8 @@
     <ClCompile Include="PlayerShip.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Tank.cpp" />
+    <ClCompile Include="TileMap.cpp" />
+    <ClCompile Include="TileMapManager.cpp" />
     <ClCompile Include="TileMapTool.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerManager.cpp" />
@@ -177,6 +179,8 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Tank.h" />
+    <ClInclude Include="TileMap.h" />
+    <ClInclude Include="TileMapManager.h" />
     <ClInclude Include="TileMapTool.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />

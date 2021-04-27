@@ -37,6 +37,9 @@
     <Filter Include="MainGame\Scene">
       <UniqueIdentifier>{cb2e4421-417d-4368-8984-7b1d46bcc581}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MainGame\TileMap">
+      <UniqueIdentifier>{1451e8ce-066f-4ca7-a129-8118951f7474}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -87,11 +90,17 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>2D Framework\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="TileMapTool.cpp">
-      <Filter>MainGame\Scene</Filter>
-    </ClCompile>
     <ClCompile Include="BattleScene.cpp">
       <Filter>MainGame\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMapManager.cpp">
+      <Filter>2D Framework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMap.cpp">
+      <Filter>MainGame\TileMap</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMapTool.cpp">
+      <Filter>MainGame\TileMap</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -149,11 +158,17 @@
     <ClInclude Include="SceneManager.h">
       <Filter>2D Framework\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="TileMapTool.h">
-      <Filter>MainGame\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="BattleScene.h">
       <Filter>MainGame\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMapManager.h">
+      <Filter>2D Framework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMap.h">
+      <Filter>MainGame\TileMap</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMapTool.h">
+      <Filter>MainGame\TileMap</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

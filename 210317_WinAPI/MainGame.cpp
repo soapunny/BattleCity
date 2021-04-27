@@ -35,7 +35,6 @@ HRESULT MainGame::Init()
 
 	SceneManager::GetSingleton()->ChangeScene("TileMapTool");
 
-
 	isInited = true;
 
 	return S_OK;

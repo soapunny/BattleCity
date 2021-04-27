@@ -138,6 +138,7 @@ void TileMapTool::Render(HDC hdc)
             );
         }
     }
+
     hPen = (HPEN)SelectObject(hdc, hOPen); // 기존의 펜 선택 
     DeleteObject( hPen ); // 생성한 펜 삭제
 
