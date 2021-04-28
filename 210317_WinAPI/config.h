@@ -27,9 +27,9 @@ using namespace std;
 
 // 샘플 타일 정보
 // 640 * 288
-#define SAMPLE_TILE_X	((9))
-#define SAMPLE_TILE_Y	((1))
-#define TILESIZE		((16) * (3))
+#define SAMPLE_TILE_X	(16)	// 8
+#define SAMPLE_TILE_Y	(2)		// 1
+#define TILESIZE		32		// 16
 
 // 메인 그리기 공간 정보
 #define	TILE_X			((16))

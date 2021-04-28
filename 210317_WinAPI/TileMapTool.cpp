@@ -12,7 +12,7 @@ HRESULT TileMapTool::Init()
     SetClientRect(g_hWnd, TILEMAPTOOLSIZE_X, TILEMAPTOOLSIZE_Y);
 
     sampleTile = ImageManager::GetSingleton()->AddImage(
-        "基敲鸥老", "Image/SamlpTile2.bmp", (144 * 3), (16 * 3),
+        "基敲鸥老", "Image/SamlpTile2.bmp", (512), (64),        //128 16
         SAMPLE_TILE_X, SAMPLE_TILE_Y);
 
     hSelectedBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
