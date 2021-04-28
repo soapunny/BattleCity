@@ -27,6 +27,10 @@ void LoadingScene::Release()
 
 void LoadingScene::Update()
 {
+	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_RETURN))
+	{
+		SceneManager::GetSingleton()->ChangeScene("BattleScene");
+	}
 }
 
 void LoadingScene::Render(HDC hdc)
