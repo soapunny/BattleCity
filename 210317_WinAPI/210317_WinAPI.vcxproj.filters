@@ -105,6 +105,9 @@
     <ClCompile Include="MenuScene.cpp">
       <Filter>MainGame\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="FileManager.cpp">
+      <Filter>2D Framework\Manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CommonFunction.h">
@@ -175,6 +178,9 @@
     </ClInclude>
     <ClInclude Include="MenuScene.h">
       <Filter>MainGame\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="FileManager.h">
+      <Filter>2D Framework\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
