@@ -12,7 +12,7 @@ HRESULT TileMapTool::Init()
     SetClientRect(g_hWnd, TILEMAPTOOLSIZE_X, TILEMAPTOOLSIZE_Y);
 
     sampleTile = ImageManager::GetSingleton()->AddImage(
-        "샘플타일", "Image/maptiles.bmp", 640, 288,
+        "샘플타일", "Image/SamlpTile2.bmp", (144 * 3), (16 * 3),
         SAMPLE_TILE_X, SAMPLE_TILE_Y);
 
     hSelectedBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
@@ -22,7 +22,7 @@ HRESULT TileMapTool::Init()
     {
         for (int j = 0; j < TILE_X; j++)
         {
-            tileInfo[i * TILE_X + j].frameX = 3;
+            tileInfo[i * TILE_X + j].frameX = 0;
             tileInfo[i * TILE_X + j].frameY = 0;
 
             tileInfo[i * TILE_X + j].rcTile.left = TILESIZE * j;
@@ -72,27 +72,27 @@ HRESULT TileMapTool::Init()
         100, 92, 1, 2);
 
     btnSave = new Button();
-    btnSave->Init("저장버튼", TILEMAPTOOLSIZE_X - sampleTile->GetWidth(),
+    btnSave->Init("저장버튼", TILEMAPTOOLSIZE_X - sampleTile->GetWidth() - 170,
         TILEMAPTOOLSIZE_Y - 300);
     btnSave->SetFunc(Save, 1);
 
     btnLoad = new Button();
-    btnLoad->Init("불러오기버튼", TILEMAPTOOLSIZE_X - sampleTile->GetWidth() + 170,
+    btnLoad->Init("불러오기버튼", TILEMAPTOOLSIZE_X - sampleTile->GetWidth(),
         TILEMAPTOOLSIZE_Y - 300);
     btnLoad->SetFunc(Load, 1);
 
     stageBt_01 = new Button();
-    stageBt_01->Init("stage1", TILEMAPTOOLSIZE_X - sampleTile->GetWidth(),
+    stageBt_01->Init("stage1", TILEMAPTOOLSIZE_X - sampleTile->GetWidth() - 200,
         TILEMAPTOOLSIZE_Y - 200);
     stageBt_01->SetFunc(setChangeStage, 1);
 
-    stageBt_02 = new Button();
-    stageBt_02->Init("stage2", TILEMAPTOOLSIZE_X - sampleTile->GetWidth() + 100,
+    stageBt_02 = new Button();      
+    stageBt_02->Init("stage2", TILEMAPTOOLSIZE_X - sampleTile->GetWidth() - 100,
         TILEMAPTOOLSIZE_Y - 200);
     stageBt_02->SetFunc(setChangeStage, 2);
 
     stageBt_03 = new Button();
-    stageBt_03->Init("stage3", TILEMAPTOOLSIZE_X - sampleTile->GetWidth() + 200,
+    stageBt_03->Init("stage3", TILEMAPTOOLSIZE_X - sampleTile->GetWidth(),
         TILEMAPTOOLSIZE_Y - 200);
     stageBt_03->SetFunc(setChangeStage, 3);
 
