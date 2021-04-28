@@ -10,13 +10,15 @@ class Image;
 class BattleScene : public GameNode
 {
 private:
-	Image* bin;
+	Image* battleStage;
 
 	Tank* tank;
 	EnemyManager* enemyMgr;
 	PlayerShip* playerShip;
-public:
 
+	int stageNum;
+
+public:
 	virtual HRESULT Init();		// 오버라이딩 : 다형성
 	virtual void Release();
 	virtual void Update();
@@ -24,5 +26,7 @@ public:
 
 	void CheckCollision();
 	virtual ~BattleScene() {}
+	
+	void LoadStage(int stageNum);
 };
 

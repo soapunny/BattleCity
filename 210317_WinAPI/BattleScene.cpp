@@ -5,13 +5,11 @@
 #include "Missile.h"
 #include "Image.h"
 #include "PlayerShip.h"
-
+#include "FileManager.h"
+#include "TileMapTool.h"
 
 HRESULT BattleScene::Init()
 {
-	bin = new Image();
-	bin->Init("Image/backGround_01.bmp", WINSIZE_X, WINSIZE_Y);
-
 	tank = new Tank();
 	tank->Init();
 
@@ -21,6 +19,7 @@ HRESULT BattleScene::Init()
 	playerShip = new PlayerShip();
 	playerShip->Init();
 
+	stageNum = 1;
 
 	return S_OK;
 }
@@ -28,19 +27,18 @@ HRESULT BattleScene::Init()
 void BattleScene::Release()
 {
 	SAFE_RELEASE(playerShip);
-	SAFE_RELEASE(bin);
 	SAFE_RELEASE(tank);
 	SAFE_RELEASE(enemyMgr);
 }
 
 void BattleScene::Update()
 {
+	float currTime1 = TimerManager::GetSingleton()->GetCurrTime();
+
 	if (tank)
 	{
 		//tank->Update();
 	}
-
-	float currTime1 = TimerManager::GetSingleton()->GetCurrTime();
 
 	if (enemyMgr)
 	{
@@ -57,10 +55,7 @@ void BattleScene::Update()
 
 void BattleScene::Render(HDC hdc)
 {
-	if (bin)
-	{
-		bin->Render(hdc/*, -100, 100*/);
-	}
+	FileManager::GetSingleton()->LoadStage(stageNum);
 
 	if (tank)
 	{
