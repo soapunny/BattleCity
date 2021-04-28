@@ -10,7 +10,7 @@ void FileManager::SaveStage(string fileName, int stageNum)
     DWORD writeenBytes;
     HANDLE hFile = CreateFile(szfileName.c_str(), GENERIC_WRITE, 0, 0, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
     /*void**/
-    WriteFile(hFile, &tileInfo, sizeof(TILE_INFO) * TILE_X * TILE_Y, &writeenBytes, NULL);
+    WriteFile(hFile, tileInfo, sizeof(TILE_INFO) * TILE_X * TILE_Y, &writeenBytes, NULL);
 
     CloseHandle(hFile);
 }
@@ -23,7 +23,7 @@ void FileManager::LoadStage(string fileName, int stageNum)
     DWORD readBytes;
     HANDLE hFile = CreateFile(szfileName.c_str(), GENERIC_READ, 0, 0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
     /*void**/
-    if (ReadFile(hFile, &tileInfo, sizeof(TILE_INFO) * TILE_X * TILE_Y, &readBytes, NULL))
+    if (ReadFile(hFile, tileInfo, sizeof(TILE_INFO) * TILE_X * TILE_Y, &readBytes, NULL))
     {
 
     }

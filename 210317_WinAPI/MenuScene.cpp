@@ -50,6 +50,11 @@ void MenuScene::Update()
 
 	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_RETURN))
 	{
+		if (selectNum == P1)
+		{
+			SceneManager::GetSingleton()->ChangeScene("LoadingScene");
+		}
+
 		if (selectNum == CONSTRUCTION)
 		{
 			SceneManager::GetSingleton()->ChangeScene("TileMapTool");
