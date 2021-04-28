@@ -141,6 +141,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BattleScene.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyManager.cpp" />
     <ClCompile Include="FileManager.cpp" />
@@ -158,14 +159,13 @@
     <ClCompile Include="PlayerShip.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Tank.cpp" />
-    <ClCompile Include="TileMap.cpp" />
-    <ClCompile Include="TileMapManager.cpp" />
     <ClCompile Include="TileMapTool.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="TimerManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BattleScene.h" />
+    <ClInclude Include="Button.h" />
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="Enemy.h" />
@@ -185,8 +185,6 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Singleton.h" />
     <ClInclude Include="Tank.h" />
-    <ClInclude Include="TileMap.h" />
-    <ClInclude Include="TileMapManager.h" />
     <ClInclude Include="TileMapTool.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="TimerManager.h" />

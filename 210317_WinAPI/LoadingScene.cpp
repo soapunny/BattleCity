@@ -22,6 +22,7 @@ void LoadingScene::Release()
 {
 	SAFE_RELEASE(stageImg);
 	SAFE_RELEASE(loadScene);	
+	SAFE_RELEASE(stageNum);
 }
 
 void LoadingScene::Update()

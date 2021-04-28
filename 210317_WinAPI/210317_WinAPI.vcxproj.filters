@@ -40,6 +40,12 @@
     <Filter Include="MainGame\TileMap">
       <UniqueIdentifier>{1451e8ce-066f-4ca7-a129-8118951f7474}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2D Framework\UI">
+      <UniqueIdentifier>{0db85b12-2814-47c0-9517-694d8ad0d777}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\UI\Button">
+      <UniqueIdentifier>{e059e6a9-7189-462f-9538-30f9b5aa932c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -93,12 +99,6 @@
     <ClCompile Include="BattleScene.cpp">
       <Filter>MainGame\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="TileMapManager.cpp">
-      <Filter>2D Framework\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="TileMap.cpp">
-      <Filter>MainGame\TileMap</Filter>
-    </ClCompile>
     <ClCompile Include="TileMapTool.cpp">
       <Filter>MainGame\TileMap</Filter>
     </ClCompile>
@@ -110,6 +110,9 @@
     </ClCompile>
     <ClCompile Include="LoadingScene.cpp">
       <Filter>MainGame\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>2D Framework\UI\Button</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -170,12 +173,6 @@
     <ClInclude Include="BattleScene.h">
       <Filter>MainGame\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="TileMapManager.h">
-      <Filter>2D Framework\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="TileMap.h">
-      <Filter>MainGame\TileMap</Filter>
-    </ClInclude>
     <ClInclude Include="TileMapTool.h">
       <Filter>MainGame\TileMap</Filter>
     </ClInclude>
@@ -187,6 +184,9 @@
     </ClInclude>
     <ClInclude Include="LoadingScene.h">
       <Filter>MainGame\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>2D Framework\UI\Button</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

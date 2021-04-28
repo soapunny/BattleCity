@@ -1,9 +1,9 @@
 #include "MainGame.h"
 #include "Image.h"
-#include "TileMapTool.h"
 #include "BattleScene.h"
 #include "MenuScene.h"
 #include "LoadingScene.h"
+#include "TileMapTool.h"
 #include "SceneManager.h"
 
 HRESULT MainGame::Init()
@@ -33,9 +33,9 @@ HRESULT MainGame::Init()
 	backBuffer->Init(maxWidth, maxHeight);
 
 	SceneManager::GetSingleton()->AddScene("BattleScene", new BattleScene());
-	SceneManager::GetSingleton()->AddScene("TileMapTool", new TileMapTool());
 	SceneManager::GetSingleton()->AddScene("MenuScene", new MenuScene());
 	SceneManager::GetSingleton()->AddScene("LoadingScene", new LoadingScene());
+	SceneManager::GetSingleton()->AddScene("TileMapTool", new TileMapTool());
 
 	SceneManager::GetSingleton()->ChangeScene("MenuScene");
 
