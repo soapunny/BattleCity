@@ -17,8 +17,8 @@ using namespace std;
 
 #define WINSIZE_X	1080
 #define WINSIZE_Y	720
-#define TILEMAPTOOLSIZE_X	1620
-#define TILEMAPTOOLSIZE_Y	1080
+#define TILEMAPTOOLSIZE_X	1300
+#define TILEMAPTOOLSIZE_Y	730
 
 #define PI			3.141592f
 #define DegToRad(x)	((x) * PI / 180.0f)

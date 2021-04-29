@@ -32,6 +32,9 @@ private:
 	Button* stageBt_02;
 	Button* stageBt_03;
 
+	bool mainChangeOn;
+	bool startTest;
+
 public:
 	virtual HRESULT Init();
 	virtual void Release();

@@ -14,6 +14,8 @@ private:
 
 	Image* backBuffer;
 
+	HDC hBackDC;
+
 public:
 	HRESULT Init();		// 오버라이딩 : 다형성
 	void Release();

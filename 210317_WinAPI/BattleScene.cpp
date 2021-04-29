@@ -56,10 +56,10 @@ void BattleScene::Render(HDC hdc)
 		FileManager::GetSingleton()->Render(hdc);
 	}
 
-	/*if (tankManager)
+	if (tankManager)
 	{
 		tankManager->Render(hdc);
-	}*/
+	}
 }
 
 void BattleScene::CheckCollision()

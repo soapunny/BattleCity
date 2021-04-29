@@ -13,7 +13,7 @@ HRESULT TileMapTool::Init()
     SetClientRect(g_hWnd, TILEMAPTOOLSIZE_X, TILEMAPTOOLSIZE_Y);
 
     sampleTile = ImageManager::GetSingleton()->FindImage("샘플타일");
-    hSelectedBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
+    /*hSelectedBrush = (HBRUSH)GetStockObject(NULL_BRUSH);*/
 
     // 메인 공간 렉트 설정
     for (int i = 0; i < TILE_Y; i++)
@@ -56,43 +56,33 @@ HRESULT TileMapTool::Init()
         }
     }
 
-    // UI Button
-    ImageManager::GetSingleton()->AddImage("저장버튼", "Image/SaveButton.bmp",
-        60, 130, 1, 2);
-    ImageManager::GetSingleton()->AddImage("불러오기버튼", "Image/LoadButton.bmp",
-        60, 130, 1, 2);
-
-    ImageManager::GetSingleton()->AddImage("stage1", "Image/stageBt_01.bmp",
-        100, 92, 1, 2);
-    ImageManager::GetSingleton()->AddImage("stage2", "Image/stageBt_02.bmp",
-        100, 92, 1, 2);
-    ImageManager::GetSingleton()->AddImage("stage3", "Image/stageBt_03.bmp",
-        100, 92, 1, 2);
-
     btnSave = new Button();
-    btnSave->Init("저장버튼", TILEMAPTOOLSIZE_X - sampleTile->GetWidth() - 170,
+    btnSave->Init("저장버튼", TILEMAPTOOLSIZE_X - sampleTile->GetWidth() + 100,
         TILEMAPTOOLSIZE_Y - 300);
     btnSave->SetFunc(Save, 1);
 
     btnLoad = new Button();
-    btnLoad->Init("불러오기버튼", TILEMAPTOOLSIZE_X - sampleTile->GetWidth(),
+    btnLoad->Init("불러오기버튼", TILEMAPTOOLSIZE_X - sampleTile->GetWidth() + 270,
         TILEMAPTOOLSIZE_Y - 300);
     btnLoad->SetFunc(Load, 1);
 
     stageBt_01 = new Button();
-    stageBt_01->Init("stage1", TILEMAPTOOLSIZE_X - sampleTile->GetWidth() - 200,
+    stageBt_01->Init("stage1", TILEMAPTOOLSIZE_X - sampleTile->GetWidth() + 100,
         TILEMAPTOOLSIZE_Y - 200);
     stageBt_01->SetFunc(SetChangeStage, 1);
 
     stageBt_02 = new Button();      
-    stageBt_02->Init("stage2", TILEMAPTOOLSIZE_X - sampleTile->GetWidth() - 100,
+    stageBt_02->Init("stage2", TILEMAPTOOLSIZE_X - sampleTile->GetWidth() + 200,
         TILEMAPTOOLSIZE_Y - 200);
     stageBt_02->SetFunc(SetChangeStage, 2);
 
     stageBt_03 = new Button();
-    stageBt_03->Init("stage3", TILEMAPTOOLSIZE_X - sampleTile->GetWidth(),
+    stageBt_03->Init("stage3", TILEMAPTOOLSIZE_X - sampleTile->GetWidth() + 300,
         TILEMAPTOOLSIZE_Y - 200);
     stageBt_03->SetFunc(SetChangeStage, 3);
+
+    mainChangeOn = true;
+    startTest = true;
 
     return S_OK;
 }
@@ -167,6 +157,8 @@ void TileMapTool::Update()
         if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_LBUTTON)
             || KeyManager::GetSingleton()->IsStayKeyDown(VK_LBUTTON))
         {
+            mainChangeOn = true;
+
             for (int i = 0; i < TILE_X * TILE_Y; i++)
             {
                 if (PtInRect(&(tileInfo[i].rcTile), g_ptMouse))
@@ -193,12 +185,17 @@ void TileMapTool::Update()
                 }
             }
         }
+        else
+        {
+            mainChangeOn = false;
+        }
     }
     else if (PtInRect(&rcSample, g_ptMouse))
     {
         // 마우스 왼쪽 버튼 클릭시 좌표 사용
         if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_LBUTTON))
         {
+            mainChangeOn = true;
             // 2) 마우스 좌표로 인덱스 계산
             int posX = g_ptMouse.x - rcSample.left;
             int posY = g_ptMouse.y - rcSample.top;
@@ -221,6 +218,7 @@ void TileMapTool::Update()
         }
         else if (KeyManager::GetSingleton()->IsOnceKeyUp(VK_LBUTTON))
         {
+            mainChangeOn = true;
             int posX = g_ptMouse.x - rcSample.left;
             int posY = g_ptMouse.y - rcSample.top;
             ptEndSelectedFrame.x = posX / TILESIZE;
@@ -234,7 +232,12 @@ void TileMapTool::Update()
         }
         else if (KeyManager::GetSingleton()->IsStayKeyDown(VK_LBUTTON))
         {
+            mainChangeOn = true;
             ptSelected[1] = g_ptMouse;
+        }
+        else
+        {
+            mainChangeOn = false;
         }
     }
 
@@ -242,8 +245,12 @@ void TileMapTool::Update()
 
 void TileMapTool::Render(HDC hdc)
 {
-    PatBlt(hdc, 0, 0,
-        TILEMAPTOOLSIZE_X, TILEMAPTOOLSIZE_Y, WHITENESS);
+    if (mainChangeOn == true)
+    {
+        PatBlt(hdc, 0, 0,
+            TILEMAPTOOLSIZE_X, TILEMAPTOOLSIZE_Y, WHITENESS);
+
+    }
 
     // 샘플타일 전체
     sampleTile->Render(hdc, TILEMAPTOOLSIZE_X - sampleTile->GetWidth(), 0);
@@ -261,17 +268,21 @@ void TileMapTool::Render(HDC hdc)
     if (stageBt_02)    stageBt_02->Render(hdc);
     if (stageBt_03)    stageBt_03->Render(hdc);
 
-    // 메인영역 전체
-    for (int i = 0; i < TILE_X * TILE_Y; i++)
+    if (mainChangeOn == true)
     {
-        sampleTile->FrameRender(hdc,
-            tileInfo[i].rcTile.left,
-            tileInfo[i].rcTile.top,
-            tileInfo[i].frameX,
-            tileInfo[i].frameY, 
-            false, 1.5f);
+        // 메인영역 전체
+        for (int i = 0; i < TILE_X * TILE_Y; i++)
+        {
+            sampleTile->FrameRender(hdc,
+                tileInfo[i].rcTile.left,
+                tileInfo[i].rcTile.top,
+                tileInfo[i].frameX,
+                tileInfo[i].frameY,
+                false, 1.5f);
+        }
+        mainChangeOn = false;
     }
-
+    
     // 선택된 타일
     if (ptStartSelectedFrame.x == ptEndSelectedFrame.x &&
         ptStartSelectedFrame.y == ptEndSelectedFrame.y)
@@ -295,7 +306,6 @@ void TileMapTool::Render(HDC hdc)
             }
         }
     }
-
 }
 
 /*

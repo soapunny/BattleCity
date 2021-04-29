@@ -44,15 +44,23 @@ HRESULT MainGame::Init()
 	backBuffer = new Image();
 	backBuffer->Init(maxWidth, maxHeight);
 
+	// UI Button
+	ImageManager::GetSingleton()->AddImage("저장버튼", "Image/SaveButton.bmp",60, 130, 1, 2);
+	ImageManager::GetSingleton()->AddImage("불러오기버튼", "Image/LoadButton.bmp",60, 130, 1, 2);
+
+	ImageManager::GetSingleton()->AddImage("stage1", "Image/stageBt_01.bmp",100, 92, 1, 2);
+	ImageManager::GetSingleton()->AddImage("stage2", "Image/stageBt_02.bmp",100, 92, 1, 2);
+	ImageManager::GetSingleton()->AddImage("stage3", "Image/stageBt_03.bmp",100, 92, 1, 2);
+
 	ImageManager::GetSingleton()->AddImage(
-		"샘플타일", "Image/SamlpTile2.bmp", (512), (64),        //128 16
+		"샘플타일", "Image/SamlpTile2.bmp", (512), (64),        
 		SAMPLE_TILE_X, SAMPLE_TILE_Y, true, RGB(255, 0, 255));
 	ImageManager::GetSingleton()->AddImage(
-		"회색배경타일", "Image/loadImage.bmp", (1024), (968),        //128 16
+		"회색배경타일", "Image/loadImage.bmp", (1024), (968),       
 		SAMPLE_TILE_X + 200, SAMPLE_TILE_Y + 200);
 
 	ImageManager::GetSingleton()->AddImage(
-		"전투배경", "Image/loadImage.bmp", (1024), (968),        //128 16
+		"전투배경", "Image/loadImage.bmp", (1024), (968),        
 		SAMPLE_TILE_X+200, SAMPLE_TILE_Y+200);
 
 	SceneManager::GetSingleton()->AddScene("BattleScene", new BattleScene());
@@ -85,12 +93,10 @@ void MainGame::Update()
 
 void MainGame::Render()
 {
-	HDC hBackDC = backBuffer->GetMemDC();//TODO 씬분리
+	hBackDC = backBuffer->GetMemDC();//TODO 씬분리
 	
 	SceneManager::GetSingleton()->Render(hBackDC);
 
-	// 인사
-	TextOut(hBackDC, 20, 20, "MainGame 렌더 중", strlen("MainGame 렌더 중"));
 	// 마우스 좌표
 	wsprintf(szText, "X : %d, Y : %d", g_ptMouse.x, g_ptMouse.y);
 	TextOut(hBackDC, 200, 20, szText, strlen(szText));
