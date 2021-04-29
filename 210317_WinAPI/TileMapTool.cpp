@@ -13,7 +13,7 @@ HRESULT TileMapTool::Init()
     SetClientRect(g_hWnd, TILEMAPTOOLSIZE_X, TILEMAPTOOLSIZE_Y);
 
     sampleTile = ImageManager::GetSingleton()->FindImage("샘플타일");
-    /*hSelectedBrush = (HBRUSH)GetStockObject(NULL_BRUSH);*/
+    hSelectedBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
 
     // 메인 공간 렉트 설정
     for (int i = 0; i < TILE_Y; i++)

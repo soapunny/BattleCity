@@ -15,6 +15,13 @@ HRESULT TankManager::Init()
         vTanks[i]->Init();
     }
 
+
+    vTanks[Tank::TANK_TYPE::GREEN_TANK * maxTankSize]->SetAlive(true); //테스트용으로 하나만 살려놓는다.
+    vTanks[Tank::TANK_TYPE::GREEN_TANK * maxTankSize]->SetPlayerType(PLAYER_TYPE::FIRST_PLAYER);
+
+    vTanks[Tank::TANK_TYPE::YELLOW_TANK * maxTankSize]->SetAlive(true); //테스트용으로 하나만 살려놓는다.
+    vTanks[Tank::TANK_TYPE::YELLOW_TANK * maxTankSize]->SetPlayerType(PLAYER_TYPE::SECOND_PLAYER);
+
     createTimer = 0.0f;
 
     return S_OK;

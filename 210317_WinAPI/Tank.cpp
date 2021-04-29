@@ -36,18 +36,21 @@ void Tank::Release()
 
 void Tank::Update()
 {
-	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_SPACE))
-	{
-		missileManager->Fire(this->barrelEnd, this->barrelAngle, moveDirection);
-	}
-
 	if (playerType == PLAYER_TYPE::FIRST_PLAYER)
 	{
 		MoveP1();
+		if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_SPACE))
+		{
+			missileManager->Fire(this->barrelEnd, this->barrelAngle, moveDirection);
+		}
 	}
 	else if (playerType == PLAYER_TYPE::SECOND_PLAYER)
 	{
 		MoveP2();
+		if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_NUMPAD0))
+		{
+			missileManager->Fire(this->barrelEnd, this->barrelAngle, moveDirection);
+		}
 	}
 	else if (playerType == PLAYER_TYPE::ENEMY_PLAYER)
 	{
@@ -92,9 +95,9 @@ void Tank::MoveP1()
 			}
 			ChangeBarrel(moveDirection);
 			pos.y -= moveSpeed;
-			if (pos.y < size / 2)
+			if (pos.y < BATTLE_SCENE_START_Y + size / 2)
 			{
-				pos.y = size / 2;
+				pos.y = BATTLE_SCENE_START_Y + size / 2;
 			}
 			moveTimer = 0.0f;
 		}
@@ -118,9 +121,9 @@ void Tank::MoveP1()
 			}
 			ChangeBarrel(moveDirection);
 			pos.y += moveSpeed;
-			if (pos.y > WINSIZE_Y - size / 2)
+			if (pos.y > BATTLE_SCENE_END_Y - size / 2)
 			{
-				pos.y = WINSIZE_Y - size / 2;
+				pos.y = BATTLE_SCENE_END_Y - size / 2;
 			}
 			moveTimer = 0.0f;
 		}
@@ -144,9 +147,9 @@ void Tank::MoveP1()
 			}
 			ChangeBarrel(moveDirection);
 			pos.x -= moveSpeed;
-			if (pos.x < size / 2)
+			if (pos.x < BATTLE_SCENE_START_X + size / 2)
 			{
-				pos.x = size / 2;
+				pos.x = BATTLE_SCENE_START_X + size / 2;
 			}
 			moveTimer = 0.0f;
 		}
@@ -170,9 +173,9 @@ void Tank::MoveP1()
 			}
 			ChangeBarrel(moveDirection);
 			pos.x += moveSpeed;
-			if (pos.x > WINSIZE_X - size / 2)
+			if (pos.x > BATTLE_SCENE_END_X - size / 2)
 			{
-				pos.x = WINSIZE_X - size / 2;
+				pos.x = BATTLE_SCENE_END_X - size / 2;
 			}
 			moveTimer = 0.0f;
 		}
@@ -204,9 +207,9 @@ void Tank::MoveP2()
 			}
 			ChangeBarrel(moveDirection);
 			pos.y -= moveSpeed;
-			if (pos.y < size / 2)
+			if (pos.y < BATTLE_SCENE_START_Y + size / 2)
 			{
-				pos.y = size / 2;
+				pos.y = BATTLE_SCENE_START_Y + size / 2;
 			}
 			moveTimer = 0.0f;
 		}
@@ -230,9 +233,9 @@ void Tank::MoveP2()
 			}
 			ChangeBarrel(moveDirection);
 			pos.y += moveSpeed;
-			if (pos.y > WINSIZE_Y - size / 2)
+			if (pos.y > BATTLE_SCENE_END_Y - size / 2)
 			{
-				pos.y = WINSIZE_Y - size / 2;
+				pos.y = BATTLE_SCENE_END_Y - size / 2;
 			}
 			moveTimer = 0.0f;
 		}
@@ -256,9 +259,9 @@ void Tank::MoveP2()
 			}
 			ChangeBarrel(moveDirection);
 			pos.x -= moveSpeed;
-			if (pos.x < size / 2)
+			if (pos.x < BATTLE_SCENE_START_X + size / 2)
 			{
-				pos.x = size / 2;
+				pos.x = BATTLE_SCENE_START_X + size / 2;
 			}
 			moveTimer = 0.0f;
 		}
@@ -282,9 +285,9 @@ void Tank::MoveP2()
 			}
 			ChangeBarrel(moveDirection);
 			pos.x += moveSpeed;
-			if (pos.x > WINSIZE_X - size / 2)
+			if (pos.x > BATTLE_SCENE_END_X - size / 2)
 			{
-				pos.x = WINSIZE_X - size / 2;
+				pos.x = BATTLE_SCENE_END_X - size / 2;
 			}
 			moveTimer = 0.0f;
 		}

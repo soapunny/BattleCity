@@ -35,6 +35,8 @@ void CollisionManager::CheckCollision()
     
     //적 미사일과 벽과의 충돌 체크
 
+    //탱크와 탱크의 충돌 체크
+
     //플레이어와 아이템과의 충돌 체크
 }
 

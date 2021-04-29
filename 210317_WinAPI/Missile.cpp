@@ -63,7 +63,7 @@ void Missile::Update()
 	{
 		Move();
 
-		if (pos.x < 0 || pos.y < 0 || pos.x > WINSIZE_X || pos.y > WINSIZE_Y)
+		if (pos.x < BATTLE_SCENE_START_X || pos.y < BATTLE_SCENE_START_Y || pos.x > BATTLE_SCENE_END_X || pos.y > BATTLE_SCENE_END_Y)
 		{
 			isFired = false;
 		}
