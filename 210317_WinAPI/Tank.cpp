@@ -58,6 +58,7 @@ void Tank::Update()
 		FireRandom();
 	}
 
+	shape = GetRectToCenter(pos.x, pos.y, size, size);
 	missileManager->Update();
 }
 

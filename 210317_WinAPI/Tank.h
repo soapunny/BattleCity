@@ -25,7 +25,7 @@ protected:
 	// 포신의 시작점, 끝점
 	FPOINT barrelEnd;
 	int barrelSize;
-	float barrelAngle;		
+	float barrelAngle;
 
 	POINT curFrame;
 	POINT maxFrame;
@@ -41,8 +41,8 @@ protected:
 public:
 
 	virtual HRESULT Init();
-	virtual void Release();		
-	virtual void Update();		
+	virtual void Release();
+	virtual void Update();
 	virtual void Render(HDC hdc);
 
 	virtual void MoveP1();
@@ -52,11 +52,17 @@ public:
 	virtual void ChangeBarrel(MOVE_DIRECTION tankMove);
 
 	// get, set
+	inline void SetPos(FPOINT pos) { this->pos = pos; }
 	FPOINT GetPos() { return this->pos; }
 	MissileManager* GetMissileManager() { return this->missileManager; }
 	inline void SetAlive(bool isAlive) { this->isAlive = isAlive; }
 	inline bool GetAlive() { return this->isAlive; }
+	inline int GetMoveSpeed() { return moveSpeed; }
+
+	inline RECT& GetShape() { return shape; }
 
 	inline void SetPlayerType(PLAYER_TYPE playerType) { this->playerType = playerType; }
+	inline MOVE_DIRECTION GetMove_Direction() { return moveDirection; }
+	inline void SetMove_Direction(MOVE_DIRECTION moveDirection) { this->moveDirection = moveDirection; }
 };
 

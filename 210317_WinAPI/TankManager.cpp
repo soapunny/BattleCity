@@ -1,5 +1,6 @@
 #include "TankManager.h"
 #include "TankFactory.h"
+#include "CollisionManager.h"
 #include "Tank.h"
 
 
@@ -68,6 +69,8 @@ void TankManager::CreateEnemyTank(STAGE_TYPE stage)
                 if(! vTanks[i]->GetAlive()){
                     vTanks[i]->SetAlive(true); //테스트용으로 하나만 살려놓는다.
                     vTanks[i]->SetPlayerType(PLAYER_TYPE::ENEMY_PLAYER);
+
+                    CollisionManager::GetSingleton()->AddTank(vTanks[i]);
                     break;
                 }
             }

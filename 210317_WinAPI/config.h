@@ -38,8 +38,8 @@ using namespace std;
 // ¹èÆ²¾À ¸Ê ¹üÀ§
 #define BATTLE_SCENE_START_X 50
 #define BATTLE_SCENE_START_Y 50
-#define BATTLE_SCENE_END_X 815
-#define BATTLE_SCENE_END_Y 815
+#define BATTLE_SCENE_END_X 700
+#define BATTLE_SCENE_END_Y 700
 
 typedef struct tagFPoint
 {

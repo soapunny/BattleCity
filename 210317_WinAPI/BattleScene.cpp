@@ -3,6 +3,7 @@
 #include "Image.h"
 #include "FileManager.h"
 #include "TileMapTool.h"
+#include "CollisionManager.h"
 
 HRESULT BattleScene::Init()
 {
@@ -42,8 +43,7 @@ void BattleScene::Update()
 			stageNum = 1;
 	}
 
-
-	CheckCollision();
+	CollisionManager::GetSingleton()->CheckCollision();
 }
 
 void BattleScene::Render(HDC hdc)
