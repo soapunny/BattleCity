@@ -4,8 +4,8 @@
 
 HRESULT YellowTank::Init()
 {
-	pos.x = WINSIZE_X / 2;
-	pos.y = WINSIZE_Y;
+	pos.x = TILESIZE * TILE_X / 2;
+	pos.y = TILESIZE * TILE_Y / 2;
 	size = 64;
 	powerLevel = 1;
 	name = "≈ ≈©";

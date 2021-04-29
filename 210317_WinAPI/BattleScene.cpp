@@ -1,47 +1,65 @@
 #include "BattleScene.h"
 #include "TankManager.h"
-#include "Missile.h"
 #include "Image.h"
-
+#include "FileManager.h"
+#include "TileMapTool.h"
 
 HRESULT BattleScene::Init()
 {
-	bin = new Image();
-	bin->Init("Image/backGround_01.bmp", WINSIZE_X, WINSIZE_Y);
+	FileManager::GetSingleton()->Init();
 
 	tankManager = new TankManager();
 	tankManager->Init();
+
+	stageNum = 1;
 
 	return S_OK;
 }
 
 void BattleScene::Release()
 {
-	SAFE_RELEASE(bin);
 	SAFE_RELEASE(tankManager);
+	FileManager::GetSingleton()->Release();
 }
 
 void BattleScene::Update()
 {
 	if (tankManager)
 	{
-		tankManager->Update();
+		tankManager->Update(stageNum - 1);
+	}
+	float currTime1 = TimerManager::GetSingleton()->GetCurrTime();
+
+	if (FileManager::GetSingleton())
+	{
+		FileManager::GetSingleton()->Update();
 	}
 
-	float currTime1 = TimerManager::GetSingleton()->GetCurrTime();
+	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_RETURN))
+	{
+		stageNum++;
+		if (stageNum >= 4)
+			stageNum = 1;
+	}
+
+
+	CheckCollision();
 }
 
 void BattleScene::Render(HDC hdc)
 {
-	if (bin)
+
+	//FileManager::GetSingleton()->LoadStage(stageNum);
+	if (FileManager::GetSingleton())
 	{
-		bin->Render(hdc/*, -100, 100*/);
+		FileManager::GetSingleton()->LoadStage(stageNum);
+		FileManager::GetSingleton()->Render(hdc);
 	}
 
-	if (tankManager)
+	/*if (tankManager)
 	{
 		tankManager->Render(hdc);
-	}
+	}*/
 }
 
 void BattleScene::CheckCollision()

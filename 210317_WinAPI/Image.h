@@ -22,6 +22,11 @@ public:
 		int height;			// 이미지 세로 크기
 		BYTE loadType;		// 로드 타입
 
+		// 알파블랜드
+		HDC hBlendDC;
+		HBITMAP hBlendBit;
+		HBITMAP hOldBlendBit;
+
 		// 애니메이션 관련 (프레임데이터)
 		int maxFrameX;
 		int maxFrameY;
@@ -40,6 +45,10 @@ public:
 			height = 0;
 			loadType = IMAGE_LOAD_KIND::EMPTY;
 
+			hBlendDC = NULL;
+			hBlendBit = NULL;
+			hOldBlendBit = NULL;
+
 			maxFrameX = 0;
 			maxFrameY = 0;
 			frameWidth = 0;
@@ -55,6 +64,8 @@ private:
 	bool isTransparent;
 	COLORREF transColor;
 
+	BLENDFUNCTION blendFunc;
+
 public:
 	// 빈 비트맵 이미지를 만드는 함수
 	HRESULT Init(int width, int height);
@@ -63,7 +74,7 @@ public:
 	HRESULT Init(const char* fileName, int width, int height, bool isTransparent = FALSE, COLORREF transColor = FALSE);
 
 	// 파일로부터 이미지를 로드하는 함수
-	HRESULT Init(const char* fileName, int width, int height, 
+	HRESULT Init(const char* fileName, int width, int height,
 		int maxFrameX, int maxFrameY,
 		bool isTransparent = FALSE, COLORREF transColor = FALSE);
 
@@ -71,9 +82,10 @@ public:
 	void Render(HDC hdc, int destX = 0, int destY = 0,
 		bool isCenterRenderring = false);
 	void FrameRender(HDC hdc, int destX, int destY,
-		int currFrameX, int currFrameY, bool isCenterRenderring = false);
-	void FrameRender(HDC hdc, int destX, int destY, int destWidth, int destHeight,
-		int startFrameX, int startFrameY, int currFrameX, int currFrameY, bool isCenterRenderring = false);
+		int currFrameX, int currFrameY, bool isCenterRenderring = false, float size = 1);
+	//void AlphaRender(HDC hdc, int destX, int destY,
+	//	bool isCenterRenderring = false);
+
 
 	void Release();
 
@@ -85,11 +97,13 @@ public:
 		return NULL;
 	}
 
-	int GetWidth() { return imageInfo->width; }
-	int GetHeight() { return imageInfo->height; }
-	int GetFrameWidth() { return imageInfo->frameWidth; }
-	int GetFrameHeight() { return imageInfo->frameHeight; }
+	BLENDFUNCTION* GetBlendFunc() { return &(this->blendFunc); }
 
-	IMAGE_INFO* const GetImageInfo() { return this->imageInfo; }
+	int GetWidth() { return this->imageInfo->width; }
+	int GetHeight() { return this->imageInfo->height; }
+	int GetFrameWidth() { return this->imageInfo->frameWidth; }
+	int GetFrameHeight() { return this->imageInfo->frameHeight; }
+
+	IMAGE_INFO* const  GetImageInfo() { return this->imageInfo; }
 };
 

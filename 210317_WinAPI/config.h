@@ -25,6 +25,22 @@ using namespace std;
 #define SAFE_DELETE(p) { if (p) { delete p; p = nullptr; } }
 #define SAFE_RELEASE(p) { if (p) { p->Release(); delete p; p = nullptr; } }
 
+// 샘플 타일 정보
+// 640 * 288
+#define SAMPLE_TILE_X	(16)	// 16
+#define SAMPLE_TILE_Y	(2)		// 2
+#define TILESIZE		32		// 32
+
+// 메인 그리기 공간 정보
+#define	TILE_X			((16))	// 16
+#define	TILE_Y			((16))	// 16
+
+// 배틀씬 맵 범위
+#define BATTLE_SCENE_START_X 50
+#define BATTLE_SCENE_START_Y 50
+#define BATTLE_SCENE_END_X 815
+#define BATTLE_SCENE_END_Y 815
+
 typedef struct tagFPoint
 {
 	float x;

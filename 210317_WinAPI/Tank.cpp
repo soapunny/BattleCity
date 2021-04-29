@@ -5,8 +5,8 @@
 
 HRESULT Tank::Init()
 {
-	pos.x = WINSIZE_X / 2;
-	pos.y = WINSIZE_Y;
+	pos.x = TILESIZE*TILE_X / 2;
+	pos.y = TILESIZE * TILE_Y / 2;
 	size = 64;
 	powerLevel = 1;
 	name = "≈ ≈©";
@@ -327,30 +327,30 @@ void Tank::MoveRandom()
 		{
 		case MOVE_DIRECTION::UP_WARD:
 			pos.y -= moveSpeed;
-			if (pos.y < size / 2)
+			if (pos.y < BATTLE_SCENE_START_Y + size / 2)
 			{
-				pos.y = size / 2;
+				pos.y = BATTLE_SCENE_START_Y + size / 2;
 			}
 			break;
 		case MOVE_DIRECTION::DOWN_WARD:
 			pos.y += moveSpeed;
-			if (pos.y > WINSIZE_Y - size / 2)
+			if (pos.y > BATTLE_SCENE_END_Y - size / 2)
 			{
-				pos.y = WINSIZE_Y - size / 2;
+				pos.y = BATTLE_SCENE_END_Y - size / 2;
 			}
 			break;
 		case MOVE_DIRECTION::LEFT_WARD:
 			pos.x -= moveSpeed;
-			if (pos.x < size / 2)
+			if (pos.x < BATTLE_SCENE_START_X + size / 2)
 			{
-				pos.x = size / 2;
+				pos.x = BATTLE_SCENE_START_X + size / 2;
 			}
 			break;
 		case MOVE_DIRECTION::RIGHT_WARD:
 			pos.x += moveSpeed;
-			if (pos.x > WINSIZE_X - size / 2)
+			if (pos.x > BATTLE_SCENE_END_X - size / 2)
 			{
-				pos.x = WINSIZE_X - size / 2;
+				pos.x = BATTLE_SCENE_END_X - size / 2;
 			}
 			break;
 		default:

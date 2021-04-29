@@ -31,14 +31,14 @@ void TankManager::Release()
     delete tankFactory;
 }
 
-void TankManager::Update()
+void TankManager::Update(int currStage)
 {
     for (int i = 0; i < vTanks.size(); i++)
     {
         if(vTanks[i]->GetAlive())
             vTanks[i]->Update();
     }
-    CreateEnemyTank(STAGE_TYPE::FIRST_STAGE);
+    CreateEnemyTank(STAGE_TYPE(currStage));
 }
 
 void TankManager::Render(HDC hdc)
@@ -61,13 +61,11 @@ void TankManager::CreateEnemyTank(STAGE_TYPE stage)
                 if(! vTanks[i]->GetAlive()){
                     vTanks[i]->SetAlive(true); //테스트용으로 하나만 살려놓는다.
                     vTanks[i]->SetPlayerType(PLAYER_TYPE::ENEMY_PLAYER);
+                    break;
                 }
             }
-
-        }
-        else
-        {
             createTimer = 0.0f;
+
         }
     }
 }

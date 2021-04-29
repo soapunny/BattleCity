@@ -1,7 +1,9 @@
 #include "MainGame.h"
 #include "Image.h"
-#include "TileMapTool.h"
 #include "BattleScene.h"
+#include "MenuScene.h"
+#include "LoadingScene.h"
+#include "TileMapTool.h"
 #include "SceneManager.h"
 #include <ctime>
 
@@ -14,13 +16,6 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->Init();
 
 	// 이미지를 미리 로드한다
-	ImageManager::GetSingleton()->AddImage("Enemy",
-		"Image/ufo.bmp", 530, 32, 10, 1,
-		true, RGB(255, 0, 255));
-
-	ImageManager::GetSingleton()->AddImage("EnemyMissile",
-		"Image/구슬.bmp", 20, 20, true, RGB(255, 0, 255));
-
 	ImageManager::GetSingleton()->AddImage("Tank",
 		"Image/Enemy/Enemy.bmp", 512, 384, 8, 6,
 		true, RGB(255, 0, 255));
@@ -49,12 +44,20 @@ HRESULT MainGame::Init()
 	backBuffer = new Image();
 	backBuffer->Init(maxWidth, maxHeight);
 
+	ImageManager::GetSingleton()->AddImage(
+		"샘플타일", "Image/SamlpTile2.bmp", (512), (64),        //128 16
+		SAMPLE_TILE_X, SAMPLE_TILE_Y, true, RGB(255, 0, 255));
+
+	ImageManager::GetSingleton()->AddImage(
+		"전투배경", "Image/loadImage.bmp", (1024), (968),        //128 16
+		SAMPLE_TILE_X+200, SAMPLE_TILE_Y+200);
+
 	SceneManager::GetSingleton()->AddScene("BattleScene", new BattleScene());
+	SceneManager::GetSingleton()->AddScene("MenuScene", new MenuScene());
+	SceneManager::GetSingleton()->AddScene("LoadingScene", new LoadingScene());
 	SceneManager::GetSingleton()->AddScene("TileMapTool", new TileMapTool());
 
-	//SceneManager::GetSingleton()->ChangeScene("TileMapTool");
-	SceneManager::GetSingleton()->ChangeScene("BattleScene");
-
+	SceneManager::GetSingleton()->ChangeScene("MenuScene");
 
 	isInited = true;
 

@@ -38,7 +38,13 @@
       <UniqueIdentifier>{daf29bbd-34ca-4056-8f25-5a1cb412649d}</UniqueIdentifier>
     </Filter>
     <Filter Include="2D Framework\UI">
+      <UniqueIdentifier>{0db85b12-2814-47c0-9517-694d8ad0d777}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2d Framework\ui">
       <UniqueIdentifier>{f818185c-33f0-464b-a913-5c6adb1d503e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2D Framework\UI\Button">
+      <UniqueIdentifier>{e059e6a9-7189-462f-9538-30f9b5aa932c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -75,10 +81,16 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>2D Framework\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="TileMapTool.cpp">
+    <ClCompile Include="BattleScene.cpp">
       <Filter>MainGame\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="BattleScene.cpp">
+    <ClCompile Include="MenuScene.cpp">
+      <Filter>MainGame\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="FileManager.cpp">
+      <Filter>2D Framework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingScene.cpp">
       <Filter>MainGame\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Tank.cpp">
@@ -99,14 +111,17 @@
     <ClCompile Include="PurpleTank.cpp">
       <Filter>MainGame\Tank</Filter>
     </ClCompile>
-    <ClCompile Include="TankFactory.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Button.cpp">
-      <Filter>2D Framework\UI</Filter>
-    </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>2D Framework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>2D Framework\UI\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="TankFactory.cpp">
+      <Filter>MainGame\Tank\Factory</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMapTool.cpp">
+      <Filter>MainGame\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -149,10 +164,16 @@
     <ClInclude Include="SceneManager.h">
       <Filter>2D Framework\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="TileMapTool.h">
+    <ClInclude Include="BattleScene.h">
       <Filter>MainGame\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="BattleScene.h">
+    <ClInclude Include="MenuScene.h">
+      <Filter>MainGame\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="FileManager.h">
+      <Filter>2D Framework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadingScene.h">
       <Filter>MainGame\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Tank.h">
@@ -173,14 +194,17 @@
     <ClInclude Include="PurpleTank.h">
       <Filter>MainGame\Tank</Filter>
     </ClInclude>
-    <ClInclude Include="TankFactory.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Button.h">
-      <Filter>2D Framework\UI</Filter>
-    </ClInclude>
     <ClInclude Include="CollisionManager.h">
       <Filter>2D Framework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>2D Framework\UI\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="TankFactory.h">
+      <Filter>MainGame\Tank\Factory</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMapTool.h">
+      <Filter>MainGame\Scene</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
