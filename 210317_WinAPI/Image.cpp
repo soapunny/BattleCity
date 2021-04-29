@@ -148,7 +148,7 @@ void Image::Render(HDC hdc, int destX, int destY, bool isCenterRenderring)
 }
 
 void Image::FrameRender(HDC hdc, int destX, int destY,
-    int currFrameX, int currFrameY, bool isCenterRenderring, int size)
+    int currFrameX, int currFrameY, bool isCenterRenderring, float size)
 {
     imageInfo->currFrameX = currFrameX;
     imageInfo->currFrameY = currFrameY;
@@ -179,7 +179,7 @@ void Image::FrameRender(HDC hdc, int destX, int destY,
     }
     else
     {
-        if (size > 1)
+        if (size > 1.0f)
         {
             StretchBlt(hdc,
                 x, y,

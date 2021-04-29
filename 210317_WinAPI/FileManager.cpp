@@ -1,62 +1,62 @@
 #include "FileManager.h"
+#include "Image.h"
 #include "CommonFunction.h"
 #include "TileMapTool.h"
-//
-//HRESULT FileManager::Init()
-//{
-//    SetClientRect(g_hWnd, TILEMAPTOOLSIZE_X, TILEMAPTOOLSIZE_Y);
-//
-//    sampleTile = ImageManager::GetSingleton()->AddImage(
-//        "샘플타일", "Image/SamlpTile2.bmp", (512), (64),        //128 16
-//        SAMPLE_TILE_X, SAMPLE_TILE_Y);
-//
-//    // 메인 공간 렉트 설정
-//    for (int i = 0; i < TILE_Y; i++)
-//    {
-//        for (int j = 0; j < TILE_X; j++)
-//        {
-//            tileInfo[i * TILE_X + j].frameX = 0;
-//            tileInfo[i * TILE_X + j].frameY = 0;
-//
-//            tileInfo[i * TILE_X + j].rcTile.left = TILESIZE * j;
-//            tileInfo[i * TILE_X + j].rcTile.top = TILESIZE * i;
-//            tileInfo[i * TILE_X + j].rcTile.right =
-//                tileInfo[i * TILE_X + j].rcTile.left + TILESIZE;
-//            tileInfo[i * TILE_X + j].rcTile.bottom =
-//                tileInfo[i * TILE_X + j].rcTile.top + TILESIZE;
-//        }
-//    }
-//
-//    return S_OK;
-//}
-//
-//void FileManager::Release()
-//{
-//    SAFE_DELETE(sampleTile);
-//}
-//
-//void FileManager::Update()
-//{
-//    // 메인 영역 계산
-//    rcMain.left = 0;
-//    rcMain.top = 0;
-//    rcMain.right = rcMain.left + (TILESIZE * TILE_X);
-//    rcMain.bottom = rcMain.top + (TILESIZE * TILE_Y);
-//}
-//
-//void FileManager::Render(HDC hdc)
-//{
-//    sampleTile->Render(hdc, TILEMAPTOOLSIZE_X - sampleTile->GetWidth(), 0);
-//
-//    for (int i = 0; i < TILE_X * TILE_Y; i++)
-//    {
-//        sampleTile->FrameRender(hdc,
-//            tileInfo[i].rcTile.left,
-//            tileInfo[i].rcTile.top,
-//            tileInfo[i].frameX,
-//            tileInfo[i].frameY);
-//    }
-//}
+
+HRESULT FileManager::Init()
+{
+    SetClientRect(g_hWnd, TILEMAPTOOLSIZE_X, TILEMAPTOOLSIZE_Y);
+
+    sampleTile = ImageManager::GetSingleton()->FindImage("샘플타일");
+
+    // 메인 공간 렉트 설정
+    for (int i = 0; i < TILE_Y; i++)
+    {
+        for (int j = 0; j < TILE_X; j++)
+        {
+            tileInfo[i * TILE_X + j].frameX = 0;
+            tileInfo[i * TILE_X + j].frameY = 0;
+
+            tileInfo[i * TILE_X + j].rcTile.left = TILESIZE * j * 1.5;
+            tileInfo[i * TILE_X + j].rcTile.top = TILESIZE * i * 1.5;
+            tileInfo[i * TILE_X + j].rcTile.right =
+                tileInfo[i * TILE_X + j].rcTile.left + (TILESIZE * 1.5);
+            tileInfo[i * TILE_X + j].rcTile.bottom =
+                tileInfo[i * TILE_X + j].rcTile.top + (TILESIZE * 1.5);
+        }
+    }
+
+    return S_OK;
+}
+
+void FileManager::Release()
+{
+    ReleaseSingleton();
+}
+
+void FileManager::Update()
+{
+    // 메인 영역 계산
+    rcMain.left = 0;
+    rcMain.top = 0;
+    rcMain.right = rcMain.left + ((TILESIZE * TILE_X));
+    rcMain.bottom = rcMain.top + ((TILESIZE * TILE_Y));
+}
+
+void FileManager::Render(HDC hdc)
+{
+    PatBlt(hdc, 0, 0, TILEMAPTOOLSIZE_X, TILEMAPTOOLSIZE_Y, WHITENESS);
+
+    for (int i = 0; i < TILE_X * TILE_Y; i++)
+    {
+        sampleTile->FrameRender(hdc,
+            tileInfo[i].rcTile.left,
+            tileInfo[i].rcTile.top,
+            tileInfo[i].frameX,
+            tileInfo[i].frameY,
+            false, 1.5);
+    }
+}
 
 void FileManager::SaveStage(int stageNum)
 {

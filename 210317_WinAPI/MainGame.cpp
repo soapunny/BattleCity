@@ -32,6 +32,10 @@ HRESULT MainGame::Init()
 	backBuffer = new Image();
 	backBuffer->Init(maxWidth, maxHeight);
 
+	ImageManager::GetSingleton()->AddImage(
+		"»ùÇÃÅ¸ÀÏ", "Image/SamlpTile2.bmp", (512), (64),        //128 16
+		SAMPLE_TILE_X, SAMPLE_TILE_Y, true, RGB(255, 0, 255));
+
 	SceneManager::GetSingleton()->AddScene("BattleScene", new BattleScene());
 	SceneManager::GetSingleton()->AddScene("MenuScene", new MenuScene());
 	SceneManager::GetSingleton()->AddScene("LoadingScene", new LoadingScene());

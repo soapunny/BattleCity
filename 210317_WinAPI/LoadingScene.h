@@ -9,6 +9,7 @@ private:
 	Image* stageImg;
 	Image* stageNum;
 
+	float loadingTimer;
 public:
 	HRESULT Init();
 	void Release();

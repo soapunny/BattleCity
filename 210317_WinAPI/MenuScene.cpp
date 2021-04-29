@@ -23,7 +23,7 @@ void MenuScene::Release()
 
 void MenuScene::Update()
 {
-	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_UP))
+	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_UP))
 	{	
 		switch (selectNum)
 		{
@@ -35,7 +35,7 @@ void MenuScene::Update()
 			break;
 		}
 	}
-	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_DOWN))
+	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_DOWN))
 	{	
 		switch (selectNum)
 		{
@@ -71,7 +71,7 @@ void MenuScene::Render(HDC hdc)
 
 	if (selectIcon)
 	{
-		selectIcon->Render(hdc, 320, 405 + selectNum * 53);
+		selectIcon->Render(hdc, 320, 405 + (selectNum * 53));
 	}
 }
 

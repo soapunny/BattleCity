@@ -11,10 +11,7 @@ HRESULT TileMapTool::Init()
 {
     SetClientRect(g_hWnd, TILEMAPTOOLSIZE_X, TILEMAPTOOLSIZE_Y);
 
-    sampleTile = ImageManager::GetSingleton()->AddImage(
-        "샘플타일", "Image/SamlpTile2.bmp", (512), (64),        //128 16
-        SAMPLE_TILE_X, SAMPLE_TILE_Y);
-
+    sampleTile = ImageManager::GetSingleton()->FindImage("샘플타일");
     hSelectedBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
 
     // 메인 공간 렉트 설정
@@ -25,12 +22,12 @@ HRESULT TileMapTool::Init()
             tileInfo[i * TILE_X + j].frameX = 0;
             tileInfo[i * TILE_X + j].frameY = 0;
 
-            tileInfo[i * TILE_X + j].rcTile.left = TILESIZE * j;
-            tileInfo[i * TILE_X + j].rcTile.top = TILESIZE * i;
+            tileInfo[i * TILE_X + j].rcTile.left = TILESIZE * j * 1.5;
+            tileInfo[i * TILE_X + j].rcTile.top = TILESIZE * i * 1.5;
             tileInfo[i * TILE_X + j].rcTile.right =
-                tileInfo[i * TILE_X + j].rcTile.left + TILESIZE;
+                tileInfo[i * TILE_X + j].rcTile.left + (TILESIZE * 1.5);
             tileInfo[i * TILE_X + j].rcTile.bottom =
-                tileInfo[i * TILE_X + j].rcTile.top + TILESIZE;
+                tileInfo[i * TILE_X + j].rcTile.top + (TILESIZE * 1.5);
         }
     }
 
@@ -155,8 +152,8 @@ void TileMapTool::Update()
     // 메인 영역 계산
     rcMain.left = 0;
     rcMain.top = 0;
-    rcMain.right = rcMain.left + (TILESIZE * TILE_X);
-    rcMain.bottom = rcMain.top + (TILESIZE * TILE_Y);
+    rcMain.right = rcMain.left + ((TILESIZE * TILE_X) * 1.5);
+    rcMain.bottom = rcMain.top + ((TILESIZE * TILE_Y) * 1.5);
 
     // 샘플 영역 계산
     rcSample.left = TILEMAPTOOLSIZE_X - sampleTile->GetWidth();
@@ -271,7 +268,8 @@ void TileMapTool::Render(HDC hdc)
             tileInfo[i].rcTile.left,
             tileInfo[i].rcTile.top,
             tileInfo[i].frameX,
-            tileInfo[i].frameY);
+            tileInfo[i].frameY, 
+            false, 1.5f);
     }
 
     // 선택된 타일

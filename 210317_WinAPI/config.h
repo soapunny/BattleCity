@@ -27,13 +27,13 @@ using namespace std;
 
 // 샘플 타일 정보
 // 640 * 288
-#define SAMPLE_TILE_X	(16)	// 8
-#define SAMPLE_TILE_Y	(2)		// 1
-#define TILESIZE		32		// 16
+#define SAMPLE_TILE_X	(16)	// 16
+#define SAMPLE_TILE_Y	(2)		// 2
+#define TILESIZE		32		// 32
 
 // 메인 그리기 공간 정보
-#define	TILE_X			((16))
-#define	TILE_Y			((16))
+#define	TILE_X			((16))	// 16
+#define	TILE_Y			((16))	// 16
 
 typedef struct tagFPoint
 {

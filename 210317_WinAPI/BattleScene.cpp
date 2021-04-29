@@ -10,6 +10,8 @@
 
 HRESULT BattleScene::Init()
 {
+	FileManager::GetSingleton()->Init();
+
 	tank = new Tank();
 	tank->Init();
 
@@ -26,6 +28,7 @@ HRESULT BattleScene::Init()
 
 void BattleScene::Release()
 {
+	FileManager::GetSingleton()->Release();
 	SAFE_RELEASE(playerShip);
 	SAFE_RELEASE(tank);
 	SAFE_RELEASE(enemyMgr);
@@ -35,29 +38,46 @@ void BattleScene::Update()
 {
 	float currTime1 = TimerManager::GetSingleton()->GetCurrTime();
 
-	if (tank)
+	if (FileManager::GetSingleton())
 	{
-		//tank->Update();
+		FileManager::GetSingleton()->Update();
 	}
 
-	if (enemyMgr)
+	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_RETURN))
 	{
-		enemyMgr->Update();
+		stageNum++;
+		if (stageNum >= 4)
+			stageNum = 1;
 	}
 
-	if (playerShip)
-	{
-		playerShip->Update();
-	}
+	//if (tank)
+	//{
+	//	//tank->Update();
+	//}
+
+	//if (enemyMgr)
+	//{
+	//	enemyMgr->Update();
+	//}
+
+	//if (playerShip)
+	//{
+	//	playerShip->Update();
+	//}
 
 	CheckCollision();
 }
 
 void BattleScene::Render(HDC hdc)
 {
-	FileManager::GetSingleton()->LoadStage(stageNum);
+	//FileManager::GetSingleton()->LoadStage(stageNum);
+	if (FileManager::GetSingleton())
+	{
+		FileManager::GetSingleton()->LoadStage(stageNum);
+		FileManager::GetSingleton()->Render(hdc);
+	}
 
-	if (tank)
+	/*if (tank)
 	{
 		tank->Render(hdc);
 	}
@@ -70,7 +90,7 @@ void BattleScene::Render(HDC hdc)
 	if (enemyMgr)
 	{
 		enemyMgr->Render(hdc);
-	}
+	}*/
 }
 
 void BattleScene::CheckCollision()

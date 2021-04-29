@@ -7,6 +7,7 @@ class PlayerShip;
 class Tank;
 class EnemyManager;
 class Image;
+class FileManager;
 class BattleScene : public GameNode
 {
 private:
@@ -26,7 +27,5 @@ public:
 
 	void CheckCollision();
 	virtual ~BattleScene() {}
-	
-	void LoadStage(int stageNum);
 };
 

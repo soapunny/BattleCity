@@ -16,10 +16,10 @@ private:
 	TileMapTool* tileMapTool;
 	RECT rcMain;
 public:
-	//HRESULT Init(); 
-	//void Release();
-	//void Update();
-	//void Render(HDC hdc);
+	HRESULT Init(); 
+	void Release();
+	void Update();
+	void Render(HDC hdc);
 
 	void SaveStage(int stageNum);
 	void LoadStage(int stageNum);

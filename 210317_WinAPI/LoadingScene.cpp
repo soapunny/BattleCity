@@ -20,16 +20,19 @@ HRESULT LoadingScene::Init()
 
 void LoadingScene::Release()
 {
+	SAFE_RELEASE(loadScene);
 	SAFE_RELEASE(stageImg);
-	SAFE_RELEASE(loadScene);	
 	SAFE_RELEASE(stageNum);
 }
 
 void LoadingScene::Update()
 {
-	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_RETURN))
+	loadingTimer += TimerManager::GetSingleton()->GetElapsedTime();
+
+	if (loadingTimer >= 3.0f)
 	{
 		SceneManager::GetSingleton()->ChangeScene("BattleScene");
+		loadingTimer = 0.0f;
 	}
 }
 
