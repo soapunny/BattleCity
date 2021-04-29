@@ -8,7 +8,6 @@ HRESULT FileManager::Init()
     SetClientRect(g_hWnd, TILEMAPTOOLSIZE_X, TILEMAPTOOLSIZE_Y);
 
     sampleTile = ImageManager::GetSingleton()->FindImage("샘플타일");
-
     backBtScene = ImageManager::GetSingleton()->FindImage("전투배경");
 
     // 메인 공간 렉트 설정
