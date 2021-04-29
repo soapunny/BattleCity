@@ -11,6 +11,8 @@ class FileManager : public Singleton<FileManager>
 {
 private:
 	Image* sampleTile;
+	Image* backTile;
+
 	TILE_INFO tileInfo[TILE_X * TILE_Y];
 
 	TileMapTool* tileMapTool;

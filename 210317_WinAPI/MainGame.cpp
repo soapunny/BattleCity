@@ -35,6 +35,9 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->AddImage(
 		"샘플타일", "Image/SamlpTile2.bmp", (512), (64),        //128 16
 		SAMPLE_TILE_X, SAMPLE_TILE_Y, true, RGB(255, 0, 255));
+	ImageManager::GetSingleton()->AddImage(
+		"회색배경타일", "Image/loadImage.bmp", (1024), (968),        //128 16
+		SAMPLE_TILE_X + 200, SAMPLE_TILE_Y + 200);
 
 	SceneManager::GetSingleton()->AddScene("BattleScene", new BattleScene());
 	SceneManager::GetSingleton()->AddScene("MenuScene", new MenuScene());

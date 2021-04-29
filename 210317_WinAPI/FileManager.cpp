@@ -8,6 +8,7 @@ HRESULT FileManager::Init()
     SetClientRect(g_hWnd, TILEMAPTOOLSIZE_X, TILEMAPTOOLSIZE_Y);
 
     sampleTile = ImageManager::GetSingleton()->FindImage("샘플타일");
+    backTile = ImageManager::GetSingleton()->FindImage("회색배경타일");
 
     // 메인 공간 렉트 설정
     for (int i = 0; i < TILE_Y; i++)
@@ -47,11 +48,13 @@ void FileManager::Render(HDC hdc)
 {
     PatBlt(hdc, 0, 0, TILEMAPTOOLSIZE_X, TILEMAPTOOLSIZE_Y, WHITENESS);
 
+    backTile->Render(hdc, 0, 0);
+
     for (int i = 0; i < TILE_X * TILE_Y; i++)
     {
         sampleTile->FrameRender(hdc,
-            tileInfo[i].rcTile.left,
-            tileInfo[i].rcTile.top,
+            tileInfo[i].rcTile.left + 50,
+            tileInfo[i].rcTile.top + 50,
             tileInfo[i].frameX,
             tileInfo[i].frameY,
             false, 1.5);
