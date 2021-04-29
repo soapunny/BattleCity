@@ -9,6 +9,7 @@ class MissileManager : public GameNode
 private:
 	vector<Missile*> vMissiles;
 	int maxMissileCnt;
+	int currMissileCnt;
 
 public:
 	HRESULT Init(PLAYER_TYPE playerType);

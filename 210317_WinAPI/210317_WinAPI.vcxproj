@@ -141,6 +141,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BattleScene.cpp" />
+    <ClCompile Include="Button.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="GameNode.cpp" />
     <ClCompile Include="GreenTank.cpp" />
     <ClCompile Include="Image.cpp" />
@@ -163,6 +165,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BattleScene.h" />
+    <ClInclude Include="Button.h" />
+    <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="CommonFunction.h" />
     <ClInclude Include="config.h" />
     <ClInclude Include="GameNode.h" />

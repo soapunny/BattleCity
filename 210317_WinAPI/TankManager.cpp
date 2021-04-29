@@ -15,7 +15,7 @@ HRESULT TankManager::Init()
         vTanks[i]->Init();
     }
 
-    vTanks[15]->SetAlive(true); //테스트용으로 하나만 살려놓는다.
+    createTimer = 0.0f;
 
     return S_OK;
 }
@@ -38,6 +38,7 @@ void TankManager::Update()
         if(vTanks[i]->GetAlive())
             vTanks[i]->Update();
     }
+    CreateEnemyTank(STAGE_TYPE::FIRST_STAGE);
 }
 
 void TankManager::Render(HDC hdc)
@@ -46,5 +47,27 @@ void TankManager::Render(HDC hdc)
     {
         if (vTanks[i]->GetAlive())
             vTanks[i]->Render(hdc);
+    }
+}
+
+void TankManager::CreateEnemyTank(STAGE_TYPE stage)
+{
+    createTimer += TimerManager::GetSingleton()->GetElapsedTime();
+
+    if(stage == STAGE_TYPE::FIRST_STAGE){
+        if(createTimer >= 5.0f)
+        { 
+            for(int i = Tank::TANK_TYPE::WHITE_TANK*5; i < Tank::TANK_TYPE::YELLOW_TANK*5; i++){
+                if(! vTanks[i]->GetAlive()){
+                    vTanks[i]->SetAlive(true); //테스트용으로 하나만 살려놓는다.
+                    vTanks[i]->SetPlayerType(PLAYER_TYPE::ENEMY_PLAYER);
+                }
+            }
+
+        }
+        else
+        {
+            createTimer = 0.0f;
+        }
     }
 }

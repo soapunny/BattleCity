@@ -3,9 +3,11 @@
 #include "TileMapTool.h"
 #include "BattleScene.h"
 #include "SceneManager.h"
+#include <ctime>
 
 HRESULT MainGame::Init()
 {
+	srand(time(NULL));
 	hdc = GetDC(g_hWnd);
 
 	KeyManager::GetSingleton()->Init();
@@ -50,6 +52,7 @@ HRESULT MainGame::Init()
 	SceneManager::GetSingleton()->AddScene("BattleScene", new BattleScene());
 	SceneManager::GetSingleton()->AddScene("TileMapTool", new TileMapTool());
 
+	//SceneManager::GetSingleton()->ChangeScene("TileMapTool");
 	SceneManager::GetSingleton()->ChangeScene("BattleScene");
 
 

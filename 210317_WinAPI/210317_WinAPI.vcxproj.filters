@@ -37,6 +37,9 @@
     <Filter Include="MainGame\Tank\Factory">
       <UniqueIdentifier>{daf29bbd-34ca-4056-8f25-5a1cb412649d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2D Framework\UI">
+      <UniqueIdentifier>{f818185c-33f0-464b-a913-5c6adb1d503e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -98,6 +101,12 @@
     </ClCompile>
     <ClCompile Include="TankFactory.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>2D Framework\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
+      <Filter>2D Framework\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +175,12 @@
     </ClInclude>
     <ClInclude Include="TankFactory.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.h">
+      <Filter>2D Framework\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>2D Framework\Manager</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

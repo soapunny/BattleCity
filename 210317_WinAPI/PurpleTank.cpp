@@ -32,6 +32,8 @@ HRESULT PurpleTank::Init()
 
 	isAlive = false;
 	moveTimer = 0.0f;
+	randMoveTimer = 0.0f;
+	fireTimer = 0.0f;
 
 	return S_OK;
 }

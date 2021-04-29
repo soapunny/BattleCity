@@ -3,7 +3,8 @@
 
 HRESULT MissileManager::Init(PLAYER_TYPE playerType)
 {
-    maxMissileCnt = 5;
+    currMissileCnt = 1;
+    maxMissileCnt = 2;
     vMissiles.resize(maxMissileCnt);
     for (int i = 0; i < vMissiles.size(); i++)
     {
@@ -24,36 +25,36 @@ void MissileManager::Release()
 
 void MissileManager::Update()
 {
-    for (auto lpMissile : vMissiles)
+    for (int i = 0; i < currMissileCnt; i++)
     {
-        if (lpMissile->GetIsFired())
+        if (vMissiles[i]->GetIsFired())
         {
-            lpMissile->Update();
+            vMissiles[i]->Update();
         }
     }
 }
 
 void MissileManager::Render(HDC hdc)
 {
-    for (auto lpMissile : vMissiles)
+    for (int i = 0; i < currMissileCnt; i++)
     {
-        if(lpMissile->GetIsFired())
+        if(vMissiles[i]->GetIsFired())
         { 
-            lpMissile->Render(hdc);
+            vMissiles[i]->Render(hdc);
         }
     }
 }
 
 void MissileManager::Fire(FPOINT startPos, float angle, MOVE_DIRECTION moveDirection)
 {
-    for (Missile* lpMissile : vMissiles)
+    for (int i = 0; i < currMissileCnt; i++)
     {
-        if (! (lpMissile->GetIsFired()))
+        if (! (vMissiles[i]->GetIsFired()))
         {
-            lpMissile->SetIsFired(true);
-            lpMissile->SetPos(startPos);
-            lpMissile->SetAngle(angle);
-            lpMissile->SetMoveDirection(moveDirection);
+            vMissiles[i]->SetIsFired(true);
+            vMissiles[i]->SetPos(startPos);
+            vMissiles[i]->SetAngle(angle);
+            vMissiles[i]->SetMoveDirection(moveDirection);
             break;
         }
     }

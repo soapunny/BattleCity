@@ -41,13 +41,18 @@ void Tank::Update()
 		missileManager->Fire(this->barrelEnd, this->barrelAngle, moveDirection);
 	}
 
-	if (playerType >= PLAYER_TYPE::FIRST_PLAYER && playerType <= PLAYER_TYPE::SECOND_PLAYER)
+	if (playerType == PLAYER_TYPE::FIRST_PLAYER)
 	{
-		Move();
+		MoveP1();
+	}
+	else if (playerType == PLAYER_TYPE::SECOND_PLAYER)
+	{
+		MoveP2();
 	}
 	else if (playerType == PLAYER_TYPE::ENEMY_PLAYER)
 	{
 		MoveRandom();
+		FireRandom();
 	}
 
 	missileManager->Update();
@@ -66,12 +71,12 @@ void Tank::Render(HDC hdc)
 	missileManager->Render(hdc);
 }
 
-void Tank::Move()
+void Tank::MoveP1()
 {
 	if (KeyManager::GetSingleton()->IsStayKeyDown('W'))
 	{
 		moveTimer += TimerManager::GetSingleton()->GetElapsedTime();
-		if(moveTimer >= 0.1f){
+		if (moveTimer >= 0.1f) {
 			if (!(curFrame.x >= MOVE_DIRECTION::UP_WARD && curFrame.x < MOVE_DIRECTION::LEFT_WARD))
 			{
 				moveDirection = MOVE_DIRECTION::UP_WARD;
@@ -87,7 +92,7 @@ void Tank::Move()
 			}
 			ChangeBarrel(moveDirection);
 			pos.y -= moveSpeed;
-			if(pos.y < size / 2)
+			if (pos.y < size / 2)
 			{
 				pos.y = size / 2;
 			}
@@ -178,9 +183,190 @@ void Tank::Move()
 	}
 }
 
+void Tank::MoveP2()
+{
+	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_UP))
+	{
+		moveTimer += TimerManager::GetSingleton()->GetElapsedTime();
+		if (moveTimer >= 0.1f) {
+			if (!(curFrame.x >= MOVE_DIRECTION::UP_WARD && curFrame.x < MOVE_DIRECTION::LEFT_WARD))
+			{
+				moveDirection = MOVE_DIRECTION::UP_WARD;
+				curFrame.x = MOVE_DIRECTION::UP_WARD;
+			}
+			else
+			{
+				curFrame.x += 1;
+				if (!(curFrame.x >= MOVE_DIRECTION::UP_WARD && curFrame.x < MOVE_DIRECTION::LEFT_WARD))
+				{
+					curFrame.x = MOVE_DIRECTION::UP_WARD;
+				}
+			}
+			ChangeBarrel(moveDirection);
+			pos.y -= moveSpeed;
+			if (pos.y < size / 2)
+			{
+				pos.y = size / 2;
+			}
+			moveTimer = 0.0f;
+		}
+	}
+	else if (KeyManager::GetSingleton()->IsStayKeyDown(VK_DOWN))
+	{
+		moveTimer += TimerManager::GetSingleton()->GetElapsedTime();
+		if (moveTimer >= 0.1f) {
+			if (!(curFrame.x >= MOVE_DIRECTION::DOWN_WARD && curFrame.x < MOVE_DIRECTION::RIGHT_WARD))
+			{
+				moveDirection = MOVE_DIRECTION::DOWN_WARD;
+				curFrame.x = MOVE_DIRECTION::DOWN_WARD;
+			}
+			else
+			{
+				curFrame.x += 1;
+				if (!(curFrame.x >= MOVE_DIRECTION::DOWN_WARD && curFrame.x < MOVE_DIRECTION::RIGHT_WARD))
+				{
+					curFrame.x = MOVE_DIRECTION::DOWN_WARD;
+				}
+			}
+			ChangeBarrel(moveDirection);
+			pos.y += moveSpeed;
+			if (pos.y > WINSIZE_Y - size / 2)
+			{
+				pos.y = WINSIZE_Y - size / 2;
+			}
+			moveTimer = 0.0f;
+		}
+	}
+	else if (KeyManager::GetSingleton()->IsStayKeyDown(VK_LEFT))
+	{
+		moveTimer += TimerManager::GetSingleton()->GetElapsedTime();
+		if (moveTimer >= 0.1f) {
+			if (!(curFrame.x >= MOVE_DIRECTION::LEFT_WARD && curFrame.x < MOVE_DIRECTION::DOWN_WARD))
+			{
+				moveDirection = MOVE_DIRECTION::LEFT_WARD;
+				curFrame.x = MOVE_DIRECTION::LEFT_WARD;
+			}
+			else
+			{
+				curFrame.x += 1;
+				if (!(curFrame.x >= MOVE_DIRECTION::LEFT_WARD && curFrame.x < MOVE_DIRECTION::DOWN_WARD))
+				{
+					curFrame.x = MOVE_DIRECTION::LEFT_WARD;
+				}
+			}
+			ChangeBarrel(moveDirection);
+			pos.x -= moveSpeed;
+			if (pos.x < size / 2)
+			{
+				pos.x = size / 2;
+			}
+			moveTimer = 0.0f;
+		}
+	}
+	else if (KeyManager::GetSingleton()->IsStayKeyDown(VK_RIGHT))
+	{
+		moveTimer += TimerManager::GetSingleton()->GetElapsedTime();
+		if (moveTimer >= 0.1f) {
+			if (!(curFrame.x >= MOVE_DIRECTION::RIGHT_WARD && curFrame.x < MOVE_DIRECTION::END_MOVE_DIRECTION))
+			{
+				moveDirection = MOVE_DIRECTION::RIGHT_WARD;
+				curFrame.x = MOVE_DIRECTION::RIGHT_WARD;
+			}
+			else
+			{
+				curFrame.x += 1;
+				if (!(curFrame.x >= MOVE_DIRECTION::RIGHT_WARD && curFrame.x < MOVE_DIRECTION::END_MOVE_DIRECTION))
+				{
+					curFrame.x = MOVE_DIRECTION::RIGHT_WARD;
+				}
+			}
+			ChangeBarrel(moveDirection);
+			pos.x += moveSpeed;
+			if (pos.x > WINSIZE_X - size / 2)
+			{
+				pos.x = WINSIZE_X - size / 2;
+			}
+			moveTimer = 0.0f;
+		}
+	}
+	else
+	{
+		moveTimer = 0.0f;
+	}
+}
+
 void Tank::MoveRandom()
 {
+	moveTimer += TimerManager::GetSingleton()->GetElapsedTime();
+	randMoveTimer += TimerManager::GetSingleton()->GetElapsedTime();
 
+	if (randMoveTimer >= 3.0f)
+	{
+		moveDirection = (MOVE_DIRECTION)((std::rand() % 4) * 2);
+		randMoveTimer = 0.0f;
+	}
+
+	if (moveTimer >= 0.1f) {
+
+		if (!(curFrame.x >= moveDirection && curFrame.x < moveDirection+2))
+		{
+			curFrame.x = moveDirection;
+		}
+		else
+		{
+			curFrame.x += 1;
+			if (!(curFrame.x >= moveDirection && curFrame.x < moveDirection + 2))
+			{
+				curFrame.x = moveDirection;
+			}
+		}
+		ChangeBarrel(moveDirection);
+		moveTimer = 0.0f;
+
+		switch (moveDirection)
+		{
+		case MOVE_DIRECTION::UP_WARD:
+			pos.y -= moveSpeed;
+			if (pos.y < size / 2)
+			{
+				pos.y = size / 2;
+			}
+			break;
+		case MOVE_DIRECTION::DOWN_WARD:
+			pos.y += moveSpeed;
+			if (pos.y > WINSIZE_Y - size / 2)
+			{
+				pos.y = WINSIZE_Y - size / 2;
+			}
+			break;
+		case MOVE_DIRECTION::LEFT_WARD:
+			pos.x -= moveSpeed;
+			if (pos.x < size / 2)
+			{
+				pos.x = size / 2;
+			}
+			break;
+		case MOVE_DIRECTION::RIGHT_WARD:
+			pos.x += moveSpeed;
+			if (pos.x > WINSIZE_X - size / 2)
+			{
+				pos.x = WINSIZE_X - size / 2;
+			}
+			break;
+		default:
+			return;
+		}
+	}
+}
+
+void Tank::FireRandom()
+{
+	fireTimer += TimerManager::GetSingleton()->GetElapsedTime();
+	if (fireTimer >= 2.0f)
+	{
+		missileManager->Fire(this->barrelEnd, this->barrelAngle, moveDirection);
+		fireTimer = 0.0f;
+	}
 }
 
 void Tank::ChangeBarrel(MOVE_DIRECTION tankMove)

@@ -87,5 +87,9 @@ public:
 
 	int GetWidth() { return imageInfo->width; }
 	int GetHeight() { return imageInfo->height; }
+	int GetFrameWidth() { return imageInfo->frameWidth; }
+	int GetFrameHeight() { return imageInfo->frameHeight; }
+
+	IMAGE_INFO* const GetImageInfo() { return this->imageInfo; }
 };
 

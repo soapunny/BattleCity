@@ -35,15 +35,20 @@ protected:
 
 	//Å¸ÀÌ¸Ó
 	float moveTimer;
+	float randMoveTimer;
+	float fireTimer;
 
 public:
+
 	virtual HRESULT Init();
 	virtual void Release();		
 	virtual void Update();		
 	virtual void Render(HDC hdc);
 
-	virtual void Move();
+	virtual void MoveP1();
+	virtual void MoveP2();
 	virtual void MoveRandom();
+	virtual void FireRandom();
 	virtual void ChangeBarrel(MOVE_DIRECTION tankMove);
 
 	// get, set
@@ -51,5 +56,7 @@ public:
 	MissileManager* GetMissileManager() { return this->missileManager; }
 	inline void SetAlive(bool isAlive) { this->isAlive = isAlive; }
 	inline bool GetAlive() { return this->isAlive; }
+
+	inline void SetPlayerType(PLAYER_TYPE playerType) { this->playerType = playerType; }
 };
 

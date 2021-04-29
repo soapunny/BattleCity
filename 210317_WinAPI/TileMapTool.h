@@ -12,6 +12,7 @@
 #define TILE_Y			20
 
 class Image;
+class Button;
 class TileMapTool : public GameNode
 {
 private:
@@ -21,7 +22,7 @@ private:
 	RECT rcSample;
 
 	//메인 타일 정보
-	TILE_INFO tileInfo[TILE_X * TILE_Y];
+	static TILE_INFO tileInfo[TILE_X * TILE_Y];
 	TILE_INFO currTile;
 	TILE_INFO startTile;
 	RECT rcMain;
@@ -29,11 +30,23 @@ private:
 	bool isStartTileChosen;
 	bool isCurrTileChosen;
 
+	static Button* btnSave;
+	static Button* btnLoad;
+	
+	Button* btnStage1;
+	Button* btnStage2;
+	Button* btnStage3;
+
+
 public:
 	virtual HRESULT Init();			// 멤버 변수의 초기화, 메모리 할당
 	virtual void Release();			// 메모리 해제
 	virtual void Update();			// 프레임 단위로 게임 로직 실행 (데이터 변동)
 	virtual void Render(HDC hdc);	// 프레임 단위로 출력 (이미지, 텍스트 등)
+
+	static void Save(int key); //static은 클래스가 만들어지기 전에 Data 영역에 먼저 생성
+	static void Load(int key);
+	static void ChangeStage(int key);
 
 	virtual ~TileMapTool() {};
 };
