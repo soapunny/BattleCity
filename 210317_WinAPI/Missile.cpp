@@ -43,7 +43,7 @@ HRESULT Missile::Init(PLAYER_TYPE playerType)
 
 	pos = {-100, -100};
 	moveSpeed = 100.0f;
-	size = 4;
+	size = 16;
 	shape = { 0, 0, 0, 0 };
 	damage = 1;
 	angle = 0.0f;

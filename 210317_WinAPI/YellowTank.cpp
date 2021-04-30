@@ -6,9 +6,9 @@ HRESULT YellowTank::Init()
 {
 	pos.x = TILESIZE * TILE_X / 2;
 	pos.y = TILESIZE * TILE_Y / 2;
-	size = 64;
+	size = 50;
 	powerLevel = 1;
-	name = "≈ ≈©";
+	name = "≈ ≈©" + to_string(tankCnt++);
 	moveSpeed = 5;
 	shape = GetRectToCenter(pos.x, pos.y, size, size);
 	playerType = PLAYER_TYPE::FIRST_PLAYER;

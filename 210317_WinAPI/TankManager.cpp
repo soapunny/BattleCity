@@ -1,6 +1,7 @@
 #include "TankManager.h"
 #include "TankFactory.h"
 #include "CollisionManager.h"
+#include "MissileManager.h"
 #include "Tank.h"
 
 
@@ -23,8 +24,20 @@ HRESULT TankManager::Init()
     vTanks[Tank::TANK_TYPE::YELLOW_TANK * maxTankSize]->SetAlive(true); //테스트용으로 하나만 살려놓는다.
     vTanks[Tank::TANK_TYPE::YELLOW_TANK * maxTankSize]->SetPlayerType(PLAYER_TYPE::SECOND_PLAYER);
 
+    //vTanks[Tank::TANK_TYPE::GREEN_TANK * maxTankSize+1]->SetAlive(true); //테스트용으로 하나만 살려놓는다.
+    //vTanks[Tank::TANK_TYPE::GREEN_TANK * maxTankSize + 1]->SetPlayerType(PLAYER_TYPE::ENEMY_PLAYER);
+
+    //CollisionManager::GetSingleton()->AddMissiles(vTanks[Tank::TANK_TYPE::GREEN_TANK * maxTankSize + 1]->GetName()
+    //    , vTanks[Tank::TANK_TYPE::GREEN_TANK * maxTankSize + 1]->GetMissileManager()->GetVMissiles());
+
     createTimer = 0.0f;
 
+    CollisionManager::GetSingleton()->AddMissiles(vTanks[Tank::TANK_TYPE::GREEN_TANK * maxTankSize]->GetName()
+        , vTanks[Tank::TANK_TYPE::GREEN_TANK * maxTankSize]->GetMissileManager()->GetVMissiles());
+    CollisionManager::GetSingleton()->AddMissiles(vTanks[Tank::TANK_TYPE::YELLOW_TANK * maxTankSize]->GetName()
+        , vTanks[Tank::TANK_TYPE::YELLOW_TANK * maxTankSize]->GetMissileManager()->GetVMissiles());
+
+    CollisionManager::GetSingleton()->RegisterVTank(&vTanks);
     return S_OK;
 }
 
@@ -70,7 +83,8 @@ void TankManager::CreateEnemyTank(STAGE_TYPE stage)
                     vTanks[i]->SetAlive(true); //테스트용으로 하나만 살려놓는다.
                     vTanks[i]->SetPlayerType(PLAYER_TYPE::ENEMY_PLAYER);
 
-                    CollisionManager::GetSingleton()->AddTank(vTanks[i]);
+                    CollisionManager::GetSingleton()->AddMissiles(vTanks[i]->GetName(), vTanks[i]->GetMissileManager()->GetVMissiles());
+                    CollisionManager::GetSingleton()->RegisterVTank(&vTanks);
                     break;
                 }
             }

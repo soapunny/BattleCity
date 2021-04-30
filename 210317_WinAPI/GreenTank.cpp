@@ -1,14 +1,15 @@
 #include "GreenTank.h"
 #include "CommonFunction.h"
 #include "MissileManager.h"
+#include <string>
 
 HRESULT GreenTank::Init()
 {
-	pos.x = TILESIZE * TILE_X / 2;
-	pos.y = TILESIZE * TILE_Y / 2;
-	size = 64;
+	pos.x = TILESIZE * TILE_X / 2 + 100;
+	pos.y = TILESIZE * TILE_Y / 2 + 100;
+	size = 50;
 	powerLevel = 1;
-	name = "≈ ≈©";
+	name = "≈ ≈©" + to_string(tankCnt++);
 	moveSpeed = 5;
 	shape = GetRectToCenter(pos.x, pos.y, size, size);
 	playerType = PLAYER_TYPE::FIRST_PLAYER;

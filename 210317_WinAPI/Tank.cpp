@@ -3,6 +3,9 @@
 #include "MissileManager.h"
 #include "Image.h"
 
+
+int Tank::tankCnt = 0;
+
 HRESULT Tank::Init()
 {
 	pos.x = TILESIZE*TILE_X / 2;
@@ -65,7 +68,7 @@ void Tank::Update()
 void Tank::Render(HDC hdc)
 {
 	// ¸öÅë
-	image->FrameRender(hdc, pos.x, pos.y, curFrame.x, curFrame.y, true);
+	image->FrameRender(hdc, pos.x, pos.y, curFrame.x, curFrame.y, true, 50/64.0f);
 
 	// Æ÷½Å
 	MoveToEx(hdc, pos.x, pos.y, NULL);
@@ -397,6 +400,24 @@ void Tank::ChangeBarrel(MOVE_DIRECTION tankMove)
 		barrelEnd.y = pos.y;
 		barrelAngle = 0.0f;
 		break;
+	}
+}
+
+void Tank::CheckBorderline()
+{
+	if (shape.left <= BATTLE_SCENE_START_X) {
+		pos.x = BATTLE_SCENE_START_X + size/2;
+	}
+	else if (shape.right >= BATTLE_SCENE_END_X) {
+		pos.x = BATTLE_SCENE_END_X - size / 2;
+	}
+	else if (shape.top <= BATTLE_SCENE_START_Y)
+	{
+		pos.y = BATTLE_SCENE_START_Y + size / 2;
+	}
+	else if (shape.bottom >= BATTLE_SCENE_END_Y)
+	{
+		pos.y = BATTLE_SCENE_END_Y - size / 2;
 	}
 }
 

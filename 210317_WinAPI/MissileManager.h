@@ -18,5 +18,6 @@ public:
 	void Render(HDC hdc);
 
 	void Fire(FPOINT startPos,float angle, MOVE_DIRECTION moveDirection);
+	inline vector<Missile*>* GetVMissiles() { return &vMissiles; }
 };
 

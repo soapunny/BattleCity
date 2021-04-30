@@ -17,8 +17,8 @@ using namespace std;
 
 #define WINSIZE_X	1080
 #define WINSIZE_Y	720
-#define TILEMAPTOOLSIZE_X	1300
-#define TILEMAPTOOLSIZE_Y	730
+#define TILEMAPTOOLSIZE_X	1020
+#define TILEMAPTOOLSIZE_Y	880
 
 #define PI			3.141592f
 #define DegToRad(x)	((x) * PI / 180.0f)
@@ -38,8 +38,8 @@ using namespace std;
 // ¹èÆ²¾À ¸Ê ¹üÀ§
 #define BATTLE_SCENE_START_X 50
 #define BATTLE_SCENE_START_Y 50
-#define BATTLE_SCENE_END_X 700
-#define BATTLE_SCENE_END_Y 700
+#define BATTLE_SCENE_END_X 815
+#define BATTLE_SCENE_END_Y 815
 
 typedef struct tagFPoint
 {

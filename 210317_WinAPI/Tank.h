@@ -9,6 +9,7 @@ public:
 	enum TANK_TYPE { WHITE_TANK, YELLOW_TANK, GREEN_TANK, PURPLE_TANK, END_TANK_TYPE };
 protected:
 	// 속성 : 멤버변수
+	static int tankCnt;
 	FPOINT pos;
 	int size;
 	float powerLevel;
@@ -50,6 +51,7 @@ public:
 	virtual void MoveRandom();
 	virtual void FireRandom();
 	virtual void ChangeBarrel(MOVE_DIRECTION tankMove);
+	virtual void CheckBorderline();
 
 	// get, set
 	inline void SetPos(FPOINT pos) { this->pos = pos; }
@@ -58,6 +60,7 @@ public:
 	inline void SetAlive(bool isAlive) { this->isAlive = isAlive; }
 	inline bool GetAlive() { return this->isAlive; }
 	inline int GetMoveSpeed() { return moveSpeed; }
+	inline string GetName() { return name; }
 
 	inline RECT& GetShape() { return shape; }
 

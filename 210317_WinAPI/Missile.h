@@ -41,6 +41,7 @@ public:
 	inline PLAYER_TYPE GetPlayerType() { return this->playerType; }
 	inline void SetAngle(float angle) { this->angle = angle; }
 	inline void SetMoveDirection(MOVE_DIRECTION moveDirection) { this->moveDirection = moveDirection; }
+	inline RECT& GetShape() { return shape; }
 
 	inline int GetSize() { return this->size; }
 };
