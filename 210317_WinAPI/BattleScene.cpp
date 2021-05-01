@@ -60,6 +60,8 @@ void BattleScene::Render(HDC hdc)
 	{
 		tankManager->Render(hdc);
 	}
+
+	CollisionManager::GetSingleton()->Render(hdc);
 }
 
 void BattleScene::CheckCollision()

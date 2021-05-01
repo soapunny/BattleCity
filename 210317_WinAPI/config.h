@@ -25,17 +25,17 @@ using namespace std;
 #define SAFE_DELETE(p) { if (p) { delete p; p = nullptr; } }
 #define SAFE_RELEASE(p) { if (p) { p->Release(); delete p; p = nullptr; } }
 
-// »ùÇÃ Å¸ÀÏ Á¤º¸
+// ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 // 640 * 288
 #define SAMPLE_TILE_X	(16)	// 16
 #define SAMPLE_TILE_Y	(2)		// 2
 #define TILESIZE		32		// 32
 
-// ¸ÞÀÎ ±×¸®±â °ø°£ Á¤º¸
+// ï¿½ï¿½ï¿½ï¿½ ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #define	TILE_X			((16))	// 16
 #define	TILE_Y			((16))	// 16
 
-// ¹èÆ²¾À ¸Ê ¹üÀ§
+// ï¿½ï¿½Æ²ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 #define BATTLE_SCENE_START_X 50
 #define BATTLE_SCENE_START_Y 50
 #define BATTLE_SCENE_END_X 815
@@ -55,7 +55,7 @@ typedef struct tagTile
 	//int tileType;
 }TILE_INFO;
 
-enum TILE_TYPE { ROAD, BRICK, GREYBRICK, RIVER, FOREST, ICE, COMMAND, FLAG };
+enum MENU { P1, P2, CONSTRUCTION };
 enum PLAYER_TYPE { FIRST_PLAYER, SECOND_PLAYER, ENEMY_PLAYER, END_PLAYER_TYPE };
 enum MOVE_DIRECTION { UP_WARD = 0, LEFT_WARD = 2, DOWN_WARD = 4, RIGHT_WARD = 6, END_MOVE_DIRECTION = 8 };
 enum STAGE_TYPE{FIRST_STAGE, SECOND_STAGE, THIRD_STAGE, FINAL_STAGE, END_OF_STAGE_TYPE};
@@ -63,3 +63,4 @@ enum STAGE_TYPE{FIRST_STAGE, SECOND_STAGE, THIRD_STAGE, FINAL_STAGE, END_OF_STAG
 extern HWND g_hWnd;
 extern HINSTANCE g_hInstance;
 extern POINT g_ptMouse;
+extern MENU g_currentMenu;

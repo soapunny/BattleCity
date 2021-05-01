@@ -10,7 +10,7 @@ HRESULT MenuScene::Init()
 	selectIcon = new Image();
 	selectIcon->Init("Image/selectIcon.bmp", 30, 30);
 
-	selectNum = 0;
+	g_currentMenu = MENU::P1;
 
 	return S_OK;
 }
@@ -25,37 +25,40 @@ void MenuScene::Update()
 {
 	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_UP))
 	{	
-		switch (selectNum)
+		switch (g_currentMenu)
 		{
 		case P2:
-			selectNum = P1;
+			g_currentMenu = MENU::P1;
 			break;
 		case CONSTRUCTION:
-			selectNum = P2;
+			g_currentMenu = MENU::P2;
 			break;
 		}
 	}
 	if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_DOWN))
 	{	
-		switch (selectNum)
+		switch (g_currentMenu)
 		{
 		case P1:
-			selectNum = P2;
+			g_currentMenu = MENU::P2;
 			break;
 		case P2:
-			selectNum = CONSTRUCTION;
+			g_currentMenu = MENU::CONSTRUCTION;
 			break;
 		}
 	}
 
 	if (KeyManager::GetSingleton()->IsStayKeyDown(VK_RETURN))
 	{
-		if (selectNum == P1)
+		if (g_currentMenu == MENU::P1)
 		{
 			SceneManager::GetSingleton()->ChangeScene("LoadingScene");
 		}
-
-		if (selectNum == CONSTRUCTION)
+		else if (g_currentMenu == MENU::P2)
+		{
+			SceneManager::GetSingleton()->ChangeScene("LoadingScene");
+		}
+		else if (g_currentMenu == MENU::CONSTRUCTION)
 		{
 			SceneManager::GetSingleton()->ChangeScene("TileMapTool");
 		}
@@ -73,7 +76,7 @@ void MenuScene::Render(HDC hdc)
 
 	if (selectIcon)
 	{
-		selectIcon->Render(hdc, 320, 405 + (selectNum * 53));
+		selectIcon->Render(hdc, 320, 405 + (g_currentMenu * 53));
 	}
 }
 

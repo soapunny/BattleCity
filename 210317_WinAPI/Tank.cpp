@@ -61,8 +61,9 @@ void Tank::Update()
 		FireRandom();
 	}
 
+	ChangeBarrel(moveDirection);
 	shape = GetRectToCenter(pos.x, pos.y, size, size);
-	missileManager->Update();
+	//missileManager->Update();
 }
 
 void Tank::Render(HDC hdc)
@@ -75,7 +76,7 @@ void Tank::Render(HDC hdc)
 	LineTo(hdc, barrelEnd.x, barrelEnd.y);
 
 	// ¹Ì»çÀÏ
-	missileManager->Render(hdc);
+	//missileManager->Render(hdc);
 }
 
 void Tank::MoveP1()
@@ -97,7 +98,6 @@ void Tank::MoveP1()
 					curFrame.x = MOVE_DIRECTION::UP_WARD;
 				}
 			}
-			ChangeBarrel(moveDirection);
 			pos.y -= moveSpeed;
 			if (pos.y < BATTLE_SCENE_START_Y + size / 2)
 			{
@@ -123,7 +123,6 @@ void Tank::MoveP1()
 					curFrame.x = MOVE_DIRECTION::DOWN_WARD;
 				}
 			}
-			ChangeBarrel(moveDirection);
 			pos.y += moveSpeed;
 			if (pos.y > BATTLE_SCENE_END_Y - size / 2)
 			{
@@ -149,7 +148,6 @@ void Tank::MoveP1()
 					curFrame.x = MOVE_DIRECTION::LEFT_WARD;
 				}
 			}
-			ChangeBarrel(moveDirection);
 			pos.x -= moveSpeed;
 			if (pos.x < BATTLE_SCENE_START_X + size / 2)
 			{
@@ -175,7 +173,6 @@ void Tank::MoveP1()
 					curFrame.x = MOVE_DIRECTION::RIGHT_WARD;
 				}
 			}
-			ChangeBarrel(moveDirection);
 			pos.x += moveSpeed;
 			if (pos.x > BATTLE_SCENE_END_X - size / 2)
 			{
@@ -209,7 +206,6 @@ void Tank::MoveP2()
 					curFrame.x = MOVE_DIRECTION::UP_WARD;
 				}
 			}
-			ChangeBarrel(moveDirection);
 			pos.y -= moveSpeed;
 			if (pos.y < BATTLE_SCENE_START_Y + size / 2)
 			{
@@ -235,7 +231,6 @@ void Tank::MoveP2()
 					curFrame.x = MOVE_DIRECTION::DOWN_WARD;
 				}
 			}
-			ChangeBarrel(moveDirection);
 			pos.y += moveSpeed;
 			if (pos.y > BATTLE_SCENE_END_Y - size / 2)
 			{
@@ -261,7 +256,6 @@ void Tank::MoveP2()
 					curFrame.x = MOVE_DIRECTION::LEFT_WARD;
 				}
 			}
-			ChangeBarrel(moveDirection);
 			pos.x -= moveSpeed;
 			if (pos.x < BATTLE_SCENE_START_X + size / 2)
 			{
@@ -287,7 +281,6 @@ void Tank::MoveP2()
 					curFrame.x = MOVE_DIRECTION::RIGHT_WARD;
 				}
 			}
-			ChangeBarrel(moveDirection);
 			pos.x += moveSpeed;
 			if (pos.x > BATTLE_SCENE_END_X - size / 2)
 			{
@@ -327,7 +320,6 @@ void Tank::MoveRandom()
 				curFrame.x = moveDirection;
 			}
 		}
-		ChangeBarrel(moveDirection);
 		moveTimer = 0.0f;
 
 		switch (moveDirection)

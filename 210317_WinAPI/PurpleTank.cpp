@@ -21,7 +21,7 @@ HRESULT PurpleTank::Init()
 	image = ImageManager::GetSingleton()->FindImage("Tank");
 
 	// Æ÷½Å
-	barrelSize = size;
+	barrelSize = size / 2;
 	barrelAngle = PI / 2;
 	barrelEnd.x = pos.x;
 	barrelEnd.y = pos.y + barrelSize;
