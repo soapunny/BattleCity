@@ -11,6 +11,7 @@ HWND g_hWnd;				// 윈도우 핸들
 LPSTR g_lpszClass = (LPSTR)TEXT("윈메인의 시작");
 MainGame g_mainGame;
 POINT g_ptMouse;
+MENU g_currentMenu;
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lParam);
 

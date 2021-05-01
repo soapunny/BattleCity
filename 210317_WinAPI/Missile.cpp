@@ -42,7 +42,7 @@ HRESULT Missile::Init(PLAYER_TYPE playerType)
 	moveDirection = MOVE_DIRECTION::UP_WARD;
 
 	pos = {-100, -100};
-	moveSpeed = 100.0f;
+	moveSpeed = 200.0f;
 	size = 16;
 	shape = { 0, 0, 0, 0 };
 	damage = 1;
@@ -62,11 +62,6 @@ void Missile::Update()
 	if (isFired)
 	{
 		Move();
-
-		if (pos.x < BATTLE_SCENE_START_X || pos.y < BATTLE_SCENE_START_Y || pos.x > BATTLE_SCENE_END_X || pos.y > BATTLE_SCENE_END_Y)
-		{
-			isFired = false;
-		}
 	}
 
 	shape.left = pos.x - size / 2;
@@ -81,21 +76,21 @@ void Missile::Render(HDC hdc)
 	{
 		if(moveDirection == MOVE_DIRECTION::UP_WARD)
 		{ 
-			imgUp->Render(hdc, pos.x, pos.y, true);
+			imgUp->FrameRender(hdc, pos.x, pos.y, 0, 0, true, 4.0f);
 		}
 		else if (moveDirection == MOVE_DIRECTION::LEFT_WARD)
 		{
-			imgLeft->Render(hdc, pos.x, pos.y, true);
+			imgLeft->FrameRender(hdc, pos.x, pos.y, 0, 0, true, 4.0f);
 		}
 		else if (moveDirection == MOVE_DIRECTION::DOWN_WARD)
 		{
-			imgDown->Render(hdc, pos.x, pos.y, true);
+			imgDown->FrameRender(hdc, pos.x, pos.y, 0, 0, true, 4.0f);
 		}
 		else if (moveDirection == MOVE_DIRECTION::RIGHT_WARD)
 		{
-			imgRight->Render(hdc, pos.x, pos.y, true);
+			imgRight->FrameRender(hdc, pos.x, pos.y, 0, 0, true, 4.0f);
 		}
-		Rectangle(hdc, shape.left, shape.top, shape.right, shape.bottom);
+		//Rectangle(hdc, shape.left, shape.top, shape.right, shape.bottom);
 	}
 }
 
