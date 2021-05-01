@@ -16,6 +16,7 @@ private:
 
 	TileMapTool* tileMapTool;
 	RECT rcMain;
+
 public:
 	HRESULT Init(); 
 	void Release();
@@ -24,4 +25,6 @@ public:
 
 	void SaveStage(int stageNum);
 	void LoadStage(int stageNum);
+
+	int GetTileType() { return this->tileInfo->tileType; }
 };

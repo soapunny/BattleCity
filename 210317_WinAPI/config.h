@@ -17,7 +17,7 @@ using namespace std;
 
 #define WINSIZE_X	1080
 #define WINSIZE_Y	720
-#define TILEMAPTOOLSIZE_X	1020
+#define TILEMAPTOOLSIZE_X	1320
 #define TILEMAPTOOLSIZE_Y	880
 
 #define PI			3.141592f
@@ -25,7 +25,6 @@ using namespace std;
 #define SAFE_DELETE(p) { if (p) { delete p; p = nullptr; } }
 #define SAFE_RELEASE(p) { if (p) { p->Release(); delete p; p = nullptr; } }
 
-// ���� Ÿ�� ����
 // 640 * 288
 #define SAMPLE_TILE_X	(16)	// 16
 #define SAMPLE_TILE_Y	(2)		// 2
@@ -52,7 +51,7 @@ typedef struct tagTile
 	RECT rcTile;
 	int frameX;
 	int frameY;
-	//int tileType;
+	int tileType;
 }TILE_INFO;
 
 enum MENU { P1, P2, CONSTRUCTION };

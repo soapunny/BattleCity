@@ -81,9 +81,6 @@ HRESULT TileMapTool::Init()
         TILEMAPTOOLSIZE_Y - 200);
     stageBt_03->SetFunc(SetChangeStage, 3);
 
-    mainChangeOn = true;
-    startTest = true;
-
     return S_OK;
 }
 
@@ -157,15 +154,13 @@ void TileMapTool::Update()
         if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_LBUTTON)
             || KeyManager::GetSingleton()->IsStayKeyDown(VK_LBUTTON))
         {
-            mainChangeOn = true;
-
             for (int i = 0; i < TILE_X * TILE_Y; i++)
             {
                 if (PtInRect(&(tileInfo[i].rcTile), g_ptMouse))
                 {
                     //selectedFrameX = i % TILE_X;
                     //selectedFrameY = i / TILE_X;
-
+                   
                     tileInfo[i].frameX = ptStartSelectedFrame.x;
                     tileInfo[i].frameY = ptStartSelectedFrame.y;
 
@@ -180,14 +175,12 @@ void TileMapTool::Update()
                             tileInfo[i + j * TILE_X + k].frameY = ptStartSelectedFrame.y + j;
                         }
                     }
-
                     break;
                 }
             }
         }
         else
         {
-            mainChangeOn = false;
         }
     }
     else if (PtInRect(&rcSample, g_ptMouse))
@@ -195,7 +188,6 @@ void TileMapTool::Update()
         // 마우스 왼쪽 버튼 클릭시 좌표 사용
         if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_LBUTTON))
         {
-            mainChangeOn = true;
             // 2) 마우스 좌표로 인덱스 계산
             int posX = g_ptMouse.x - rcSample.left;
             int posY = g_ptMouse.y - rcSample.top;
@@ -211,14 +203,12 @@ void TileMapTool::Update()
             //    {
             //        ptStartSelectedFrame.x = i % SAMPLE_TILE_X;
             //        ptStartSelectedFrame.y = i / SAMPLE_TILE_X;
-
             //        break;
             //    }
             //}
         }
         else if (KeyManager::GetSingleton()->IsOnceKeyUp(VK_LBUTTON))
         {
-            mainChangeOn = true;
             int posX = g_ptMouse.x - rcSample.left;
             int posY = g_ptMouse.y - rcSample.top;
             ptEndSelectedFrame.x = posX / TILESIZE;
@@ -232,25 +222,17 @@ void TileMapTool::Update()
         }
         else if (KeyManager::GetSingleton()->IsStayKeyDown(VK_LBUTTON))
         {
-            mainChangeOn = true;
             ptSelected[1] = g_ptMouse;
         }
         else
         {
-            mainChangeOn = false;
         }
     }
-
 }
 
 void TileMapTool::Render(HDC hdc)
 {
-    if (mainChangeOn == true)
-    {
-        PatBlt(hdc, 0, 0,
-            TILEMAPTOOLSIZE_X, TILEMAPTOOLSIZE_Y, WHITENESS);
-
-    }
+    PatBlt(hdc, 0, 0, TILEMAPTOOLSIZE_X, TILEMAPTOOLSIZE_Y, WHITENESS);
 
     // 샘플타일 전체
     sampleTile->Render(hdc, TILEMAPTOOLSIZE_X - sampleTile->GetWidth(), 0);
@@ -268,19 +250,15 @@ void TileMapTool::Render(HDC hdc)
     if (stageBt_02)    stageBt_02->Render(hdc);
     if (stageBt_03)    stageBt_03->Render(hdc);
 
-    if (mainChangeOn == true)
+    // 메인영역 전체
+    for (int i = 0; i < TILE_X * TILE_Y; i++)
     {
-        // 메인영역 전체
-        for (int i = 0; i < TILE_X * TILE_Y; i++)
-        {
-            sampleTile->FrameRender(hdc,
-                tileInfo[i].rcTile.left,
-                tileInfo[i].rcTile.top,
-                tileInfo[i].frameX,
-                tileInfo[i].frameY,
-                false, 1.5f);
-        }
-        mainChangeOn = false;
+        sampleTile->FrameRender(hdc,
+            tileInfo[i].rcTile.left,
+            tileInfo[i].rcTile.top,
+            tileInfo[i].frameX,
+            tileInfo[i].frameY,
+            false, 1.5f);
     }
     
     // 선택된 타일
@@ -302,7 +280,6 @@ void TileMapTool::Render(HDC hdc)
                     TILEMAPTOOLSIZE_X - sampleTile->GetWidth() + (j * TILESIZE),
                     sampleTile->GetHeight() + 50 + (i * TILESIZE),
                     ptStartSelectedFrame.x + j, ptStartSelectedFrame.y + i, false, 1);
-
             }
         }
     }
@@ -369,3 +346,30 @@ void TileMapTool::SetChangeStage(int key)
     실습2.
     로드는 Ctrl + F1, Ctrl + F2, Ctrl + F3...
 */
+
+//테스트
+//if ((ptStartSelectedFrame.x >= 0 && ptStartSelectedFrame.x <= 1) &&
+//    (ptStartSelectedFrame.y >= 0 && ptStartSelectedFrame.y <= 1))
+//{
+//    tileInfo[i].tileType = 0;
+//}
+//if ((ptStartSelectedFrame.x >= 2 && ptStartSelectedFrame.x <= 3) &&
+//    (ptStartSelectedFrame.y >= 0 && ptStartSelectedFrame.y <= 1))
+//{
+//    tileInfo[i].tileType = 1;
+//}
+//if ((ptStartSelectedFrame.x >= 4 && ptStartSelectedFrame.x <= 5) &&
+//    (ptStartSelectedFrame.y >= 0 && ptStartSelectedFrame.y <= 1))
+//{
+//    tileInfo[i].tileType = 2;
+//}
+//if ((ptStartSelectedFrame.x >= 6 && ptStartSelectedFrame.x <= 7) &&
+//    (ptStartSelectedFrame.y >= 0 && ptStartSelectedFrame.y <= 1))
+//{
+//    tileInfo[i].tileType = 3;
+//}
+//if ((ptStartSelectedFrame.x >= 8 && ptStartSelectedFrame.x <= 9) &&
+//    (ptStartSelectedFrame.y >= 0 && ptStartSelectedFrame.y <= 1))
+//{
+//    tileInfo[i].tileType = 4;
+//}

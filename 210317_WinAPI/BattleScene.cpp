@@ -48,8 +48,6 @@ void BattleScene::Update()
 
 void BattleScene::Render(HDC hdc)
 {
-
-	//FileManager::GetSingleton()->LoadStage(stageNum);
 	if (FileManager::GetSingleton())
 	{
 		FileManager::GetSingleton()->LoadStage(stageNum);
@@ -108,3 +106,5 @@ void BattleScene::CheckCollision()
 
 	// 적 미사일 <-> 탱크 미사일
 }
+
+

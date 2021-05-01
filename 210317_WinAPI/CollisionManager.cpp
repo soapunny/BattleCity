@@ -96,9 +96,9 @@ void CollisionManager::CheckRect(Tank* tank1, Tank* tank2)
 
 void CollisionManager::CheckCollision()
 {
-
     vector<Missile*>* tmpVMissiles1 = nullptr;
     vector<Missile*>* tmpVMissiles2 = nullptr;
+
     if (mMissileStorage.size() > 0) {
         //충돌 애니메이션
         for (list<CollisionData>::iterator it = collisionBuffer.begin(); it != collisionBuffer.end();)
@@ -214,7 +214,6 @@ void CollisionManager::CheckCollision()
                     }
                 }
             }
-
 
         //미사일과 타일과의 충돌 체크
 

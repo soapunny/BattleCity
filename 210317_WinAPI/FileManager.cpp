@@ -59,7 +59,7 @@ void FileManager::Render(HDC hdc)
             tileInfo[i].rcTile.top + 50,
             tileInfo[i].frameX,
             tileInfo[i].frameY,
-            false, 1.5);
+            false, 1.5); 
     }
 }
 

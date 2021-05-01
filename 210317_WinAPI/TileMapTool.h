@@ -32,8 +32,7 @@ private:
 	Button* stageBt_02;
 	Button* stageBt_03;
 
-	bool mainChangeOn;
-	bool startTest;
+	//int tileType;
 
 public:
 	virtual HRESULT Init();
