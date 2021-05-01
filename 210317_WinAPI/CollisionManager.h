@@ -33,5 +33,6 @@ public:
 	void CheckRect(Tank* tank1, Tank* tank2);
 
 	void CheckCollision();
+	void CheckMissileTankCollision(int i);
 };
 

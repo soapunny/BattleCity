@@ -135,27 +135,7 @@ void CollisionManager::CheckCollision()
         //플레이어 미사일과 적과의 충돌 체크
         for (int i = 0; i < vTankStorage->size(); i++)//탱크 각각 돌리고
         {
-            if ((*vTankStorage)[i]->GetAlive()){
-                for (map<string, vector<Missile*>* >::iterator it = mMissileStorage.begin(); it != mMissileStorage.end();)
-                {//미사일 더미 돌리면서
-                    for (int j = 0; j < (*it).second->size();j++)//각각의 미사일 백터들을 돌리면서
-                    {
-                        if ((*it).second->at(j)->GetIsFired() && (*vTankStorage)[i]->GetAlive()) {//해당 미사일이 발사된 상태고 탱크가 살아있으면
-                            if(IntersectRect(&tmpRect, &(*it).second->at(j)->GetShape(), &(*vTankStorage)[i]->GetShape())){
-                                (*it).second->at(j)->SetIsFired(false);
-                                (*vTankStorage)[i]->SetAlive(false);
-                                mMissileStorage.erase(it++);
-                                break;
-                            }
-                        }
-                        else if (j = (*it).second->size() - 1)
-                        {
-                            it++;
-                            break;
-                        }
-                    }
-                }
-            }
+            CheckMissileTankCollision(i);
         }
 
     }
@@ -181,6 +161,35 @@ void CollisionManager::CheckCollision()
         }
 
     //플레이어와 아이템과의 충돌 체크
+}
+
+void CollisionManager::CheckMissileTankCollision(int i)
+{
+    if ((*vTankStorage)[i]->GetAlive()) {
+        for (map<string, vector<Missile*>* >::iterator it = mMissileStorage.begin(); it != mMissileStorage.end();)
+        {//미사일 더미 돌리면서
+            if ((*it).first != (*vTankStorage)[i]->GetName()) {
+                for (int j = 0; j < (*it).second->size(); j++)//각각의 미사일 백터들을 돌리면서
+                {
+                    if ((*it).second->at(j)->GetIsFired() && IntersectRect(&tmpRect, &(*it).second->at(j)->GetShape(), &(*vTankStorage)[i]->GetShape())) {
+                        (*it).second->at(j)->SetIsFired(false);
+                        (*vTankStorage)[i]->SetAlive(false);
+                        mMissileStorage.erase( mMissileStorage.find((*vTankStorage)[i]->GetName() ) );
+                        return;
+                    }
+                    else if (j == (*it).second->size() - 1)
+                    {
+                        it++;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                it++;
+            }
+        }
+    }
 }
 
 
