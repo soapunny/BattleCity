@@ -1,3 +1,4 @@
+#pragma once
 #include "GreenTank.h"
 #include "CommonFunction.h"
 #include "MissileManager.h"

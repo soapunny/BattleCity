@@ -59,7 +59,11 @@ public:
 	void CheckRect(Tank* tank1, Tank* tank2);
 
 	void CheckCollision();
+	void CheckMissileOut();
 	void CheckMissileTankCollision(int i);
+	void CheckMissileMissileCollision();
+	void CheckTankTankCollision();
+	void ShowAnimation();
 
 	inline void AddCollisionBuffer(FPOINT pos, EXPLOSION_TYPE explosionType = EXPLOSION_TYPE::SMALL_EXPLOSION)
 	{

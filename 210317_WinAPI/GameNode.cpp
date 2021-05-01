@@ -1,5 +1,5 @@
 // 멤버함수 정의
-
+#pragma once
 #include "GameNode.h"
 
 HRESULT GameNode::Init()

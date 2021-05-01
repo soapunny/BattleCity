@@ -1,3 +1,4 @@
+#pragma once
 #include "TankManager.h"
 #include "TankFactory.h"
 #include "MissileManager.h"

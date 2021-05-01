@@ -1,3 +1,4 @@
+#pragma once
 #include "MainGame.h"
 #include "Image.h"
 #include "BattleScene.h"
@@ -5,7 +6,6 @@
 #include "LoadingScene.h"
 #include "TileMapTool.h"
 #include "SceneManager.h"
-#include "CollisionManager.h"
 #include <ctime>
 
 HRESULT MainGame::Init()
@@ -41,9 +41,6 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->AddImage("BigBoomEffect",
 		"Image/Effect/Big_Boom_Effect.bmp", 64, 32, 2, 1,
 		true, RGB(255, 0, 255));
-
-
-	CollisionManager::GetSingleton()->Init();
 
 	// 메인게임의 초기화 함수
 	//hTimer = (HANDLE)SetTimer(g_hWnd, 0, 1, NULL);

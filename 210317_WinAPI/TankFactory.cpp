@@ -1,3 +1,4 @@
+#pragma once
 #include "TankFactory.h"
 #include "YellowTank.h"
 #include "WhiteTank.h"

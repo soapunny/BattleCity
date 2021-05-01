@@ -1,3 +1,4 @@
+#pragma once
 #include "LoadingScene.h"
 #include "Image.h"
 #include "SceneManager.h"

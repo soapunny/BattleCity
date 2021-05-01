@@ -1,3 +1,4 @@
+#pragma once
 #include "CommonFunction.h"
 #include "Tank.h"
 #include "MissileManager.h"
@@ -395,8 +396,9 @@ void Tank::ChangeBarrel(MOVE_DIRECTION tankMove)
 	}
 }
 
-void Tank::CheckBorderline()
+bool Tank::CheckBorderline()
 {
+	bool isOnTheLine = true;
 	if (shape.left <= BATTLE_SCENE_START_X) {
 		pos.x = BATTLE_SCENE_START_X + size/2;
 	}
@@ -411,6 +413,11 @@ void Tank::CheckBorderline()
 	{
 		pos.y = BATTLE_SCENE_END_Y - size / 2;
 	}
+	else
+	{
+		isOnTheLine = false;
+	}
+	return isOnTheLine;
 }
 
 

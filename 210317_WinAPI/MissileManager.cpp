@@ -1,3 +1,4 @@
+#pragma once
 #include "MissileManager.h"
 #include "Missile.h"
 

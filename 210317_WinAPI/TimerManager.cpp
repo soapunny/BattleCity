@@ -1,3 +1,4 @@
+#pragma once
 #include "TimerManager.h"
 #include "Timer.h"
 

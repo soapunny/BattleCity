@@ -1,3 +1,4 @@
+#pragma once
 #include "TilemapTool.h"
 #include "Image.h"
 #include "SceneManager.h"

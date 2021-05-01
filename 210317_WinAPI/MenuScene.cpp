@@ -1,3 +1,4 @@
+#pragma once
 #include "MenuScene.h"
 #include "Image.h"
 #include "SceneManager.h"

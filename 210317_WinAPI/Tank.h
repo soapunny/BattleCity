@@ -51,7 +51,7 @@ public:
 	virtual void MoveRandom();
 	virtual void FireRandom();
 	virtual void ChangeBarrel(MOVE_DIRECTION tankMove);
-	virtual void CheckBorderline();
+	virtual bool CheckBorderline();
 
 	// get, set
 	inline void SetPos(FPOINT pos) { this->pos = pos; }

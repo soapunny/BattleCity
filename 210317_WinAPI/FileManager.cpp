@@ -1,3 +1,4 @@
+#pragma once
 #include "FileManager.h"
 #include "Image.h"
 #include "CommonFunction.h"
