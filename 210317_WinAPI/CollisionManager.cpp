@@ -73,7 +73,7 @@ void CollisionManager::CheckRect(Tank* tank1, Tank* tank2)
             tank2->SetPos(FPOINT{ tank2->GetPos().x, tank2->GetPos().y - yGap });
             break;
         case MOVE_DIRECTION::DOWN_WARD:
-            if(tank1->GetMove_Direction() != MOVE_DIRECTION::UP_WARD)
+            if (tank1->GetMove_Direction() != MOVE_DIRECTION::UP_WARD)
                 tank2->SetMove_Direction(MOVE_DIRECTION::UP_WARD);
             tank2->SetPos(FPOINT{ tank2->GetPos().x, tank2->GetPos().y + yGap });
             break;
@@ -96,14 +96,14 @@ void CollisionManager::CheckRect(Tank* tank1, Tank* tank2)
 void CollisionManager::CheckCollision()
 {
 
-    
+
     /*vector<Missile*> vMissiles;
     mMissileStorage.insert(make_pair("1", &(vMissiles)));*/
-    //플레이어 미사일과 플레어 && 적 미사일의 충돌 체크
     vector<Missile*>* tmpVMissiles1 = nullptr;
     vector<Missile*>* tmpVMissiles2 = nullptr;
-    if (mMissileStorage.size() > 1)  {
-        for(int i = 0; i < vTankStorage->size()-1; i++) 
+    if (mMissileStorage.size() > 1) {
+        //플레이어 미사일과 플레어 && 적 미사일의 충돌 체크
+        for (int i = 0; i < vTankStorage->size() - 1; i++)
         {
             if (mMissileStorage.find((*vTankStorage)[i]->GetName()) != mMissileStorage.end())
                 tmpVMissiles1 = mMissileStorage.at((*vTankStorage)[i]->GetName()); //미사일 더미를 이름으로 꺼내옴
@@ -131,8 +131,35 @@ void CollisionManager::CheckCollision()
                 }
             }
         }
+
+        //플레이어 미사일과 적과의 충돌 체크
+        for (int i = 0; i < vTankStorage->size(); i++)//탱크 각각 돌리고
+        {
+            if ((*vTankStorage)[i]->GetAlive()){
+                for (map<string, vector<Missile*>* >::iterator it = mMissileStorage.begin(); it != mMissileStorage.end();)
+                {//미사일 더미 돌리면서
+                    for (int j = 0; j < (*it).second->size();j++)//각각의 미사일 백터들을 돌리면서
+                    {
+                        if ((*it).second->at(j)->GetIsFired() && (*vTankStorage)[i]->GetAlive()) {//해당 미사일이 발사된 상태고 탱크가 살아있으면
+                            if(IntersectRect(&tmpRect, &(*it).second->at(j)->GetShape(), &(*vTankStorage)[i]->GetShape())){
+                                (*it).second->at(j)->SetIsFired(false);
+                                (*vTankStorage)[i]->SetAlive(false);
+                                mMissileStorage.erase(it++);
+                                break;
+                            }
+                        }
+                        else if (j = (*it).second->size() - 1)
+                        {
+                            it++;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
     }
-    //플레이어 미사일과 적과의 충돌 체크
+
 
     //적 미사일과 플레이어와의 충돌 체크
 

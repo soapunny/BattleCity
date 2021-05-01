@@ -22,7 +22,7 @@ HRESULT GreenTank::Init()
 	image = ImageManager::GetSingleton()->FindImage("Tank");
 
 	// Æ÷½Å
-	barrelSize = size / 2;
+	barrelSize = size;
 	barrelAngle = PI / 2;
 	barrelEnd.x = pos.x;
 	barrelEnd.y = pos.y + barrelSize;
