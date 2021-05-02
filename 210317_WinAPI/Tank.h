@@ -7,6 +7,7 @@ class Tank : public GameNode
 {
 public:
 	enum TANK_TYPE { WHITE_TANK, YELLOW_TANK, GREEN_TANK, PURPLE_TANK, END_TANK_TYPE };
+	enum TANK_STATE { NORMAL_STATE, SLIPPERY_STATE, SIZE_OF_TANK_STATE};
 protected:
 	// 속성 : 멤버변수
 	static int tankCnt;
@@ -19,6 +20,7 @@ protected:
 	Image* image;
 	bool isAlive;
 
+	TANK_STATE tankState;
 	PLAYER_TYPE playerType;
 	MOVE_DIRECTION moveDirection;
 
@@ -52,6 +54,7 @@ public:
 	virtual void FireRandom();
 	virtual void ChangeBarrel(MOVE_DIRECTION tankMove);
 	virtual bool CheckBorderline();
+	virtual void GetSlipped();
 
 	// get, set
 	inline void SetPos(FPOINT pos) { this->pos = pos; }
@@ -67,5 +70,9 @@ public:
 	inline void SetPlayerType(PLAYER_TYPE playerType) { this->playerType = playerType; }
 	inline MOVE_DIRECTION GetMove_Direction() { return moveDirection; }
 	inline void SetMove_Direction(MOVE_DIRECTION moveDirection) { this->moveDirection = moveDirection; }
+	inline int GetSize() { return size; }
+
+	virtual inline void ChangeIntoSlipperyState() { tankState = TANK_STATE::SLIPPERY_STATE; }
+	virtual inline void ChangeIntoNormalState() { tankState = TANK_STATE::NORMAL_STATE; }
 };
 

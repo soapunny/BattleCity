@@ -2,36 +2,23 @@
 #include "TilemapTool.h"
 #include "Image.h"
 #include "SceneManager.h"
+#include "FileManager.h"
 #include "CommonFunction.h"
 #include "Button.h"
 
-TILE_INFO TileMapTool::tileInfo[TILE_X * TILE_Y];
 Button* TileMapTool::btnSave = nullptr;
 Button* TileMapTool::btnLoad = nullptr;
 
 HRESULT TileMapTool::Init()
 {
-    SetClientRect(g_hWnd, TILEMAPTOOLSIZE_X, TILEMAPTOOLSIZE_Y);
+    SetClientRect(g_hWnd, TILEMAPTOOLSIZE_X, TILEMAPTOOLSIZE_Y);//클라이언트 화면 사이즈
 
     sampleTile = ImageManager::GetSingleton()->FindImage("샘플타일");
     hSelectedBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
 
-    // 메인 공간 렉트 설정
-    for (int i = 0; i < TILE_Y; i++)
-    {
-        for (int j = 0; j < TILE_X; j++)
-        {
-            tileInfo[i * TILE_X + j].frameX = 0;
-            tileInfo[i * TILE_X + j].frameY = 0;
-
-            tileInfo[i * TILE_X + j].rcTile.left = TILESIZE * j * 1.5;
-            tileInfo[i * TILE_X + j].rcTile.top = TILESIZE * i * 1.5;
-            tileInfo[i * TILE_X + j].rcTile.right =
-                tileInfo[i * TILE_X + j].rcTile.left + (TILESIZE * 1.5);
-            tileInfo[i * TILE_X + j].rcTile.bottom =
-                tileInfo[i * TILE_X + j].rcTile.top + (TILESIZE * 1.5);
-        }
-    }
+    //메인 공간에 첫번째 스테이지 로드
+    FileManager::GetSingleton()->Init();
+    FileManager::GetSingleton()->LoadStage(STAGE_TYPE::FIRST_STAGE + 1);
 
     // 샘플 공간 렉트 설정
     for (int i = 0; i < SAMPLE_TILE_Y; i++)
@@ -46,40 +33,27 @@ HRESULT TileMapTool::Init()
 
             sampleTileInfo[i * SAMPLE_TILE_X + j].frameX = j;
             sampleTileInfo[i * SAMPLE_TILE_X + j].frameY = i;
-
-            //sampleTileInfo[i * SAMPLE_TILE_X + j].rcTile.left =
-            //    TILEMAPTOOLSIZE_X - sampleTile->GetWidth() + (TILESIZE * j);
-            //sampleTileInfo[i * SAMPLE_TILE_X + j].rcTile.top = (TILESIZE * i);
-            //sampleTileInfo[i * SAMPLE_TILE_X + j].rcTile.right =
-            //    sampleTileInfo[i * SAMPLE_TILE_X + j].rcTile.left + TILESIZE;
-            //sampleTileInfo[i * SAMPLE_TILE_X + j].rcTile.bottom =
-            //    sampleTileInfo[i * SAMPLE_TILE_X + j].rcTile.top + TILESIZE;
         }
     }
 
     btnSave = new Button();
-    btnSave->Init("저장버튼", TILEMAPTOOLSIZE_X - sampleTile->GetWidth() + 100,
-        TILEMAPTOOLSIZE_Y - 300);
-    btnSave->SetFunc(Save, 1);
+    btnSave->Init("저장버튼", TILEMAPTOOLSIZE_X - sampleTile->GetWidth() + 50, TILEMAPTOOLSIZE_Y - 200);
+    btnSave->SetFunc(FileManager::GetSingleton()->SaveStage, 1);
 
     btnLoad = new Button();
-    btnLoad->Init("불러오기버튼", TILEMAPTOOLSIZE_X - sampleTile->GetWidth() + 270,
-        TILEMAPTOOLSIZE_Y - 300);
-    btnLoad->SetFunc(Load, 1);
+    btnLoad->Init("불러오기버튼", TILEMAPTOOLSIZE_X - sampleTile->GetWidth() + 150, TILEMAPTOOLSIZE_Y - 200);
+    btnLoad->SetFunc(FileManager::GetSingleton()->LoadStage, 1);
 
     stageBt_01 = new Button();
-    stageBt_01->Init("stage1", TILEMAPTOOLSIZE_X - sampleTile->GetWidth() + 100,
-        TILEMAPTOOLSIZE_Y - 200);
+    stageBt_01->Init("stage1", TILEMAPTOOLSIZE_X - sampleTile->GetWidth() - 20, TILEMAPTOOLSIZE_Y - 400);
     stageBt_01->SetFunc(SetChangeStage, 1);
 
     stageBt_02 = new Button();      
-    stageBt_02->Init("stage2", TILEMAPTOOLSIZE_X - sampleTile->GetWidth() + 200,
-        TILEMAPTOOLSIZE_Y - 200);
+    stageBt_02->Init("stage2", TILEMAPTOOLSIZE_X - sampleTile->GetWidth() + 80, TILEMAPTOOLSIZE_Y - 400);
     stageBt_02->SetFunc(SetChangeStage, 2);
 
     stageBt_03 = new Button();
-    stageBt_03->Init("stage3", TILEMAPTOOLSIZE_X - sampleTile->GetWidth() + 300,
-        TILEMAPTOOLSIZE_Y - 200);
+    stageBt_03->Init("stage3", TILEMAPTOOLSIZE_X - sampleTile->GetWidth() + 180, TILEMAPTOOLSIZE_Y - 400);
     stageBt_03->SetFunc(SetChangeStage, 3);
 
     mainChangeOn = true;
@@ -95,6 +69,7 @@ void TileMapTool::Release()
     SAFE_RELEASE(stageBt_01);
     SAFE_RELEASE(stageBt_02);
     SAFE_RELEASE(stageBt_03);
+    FileManager::GetSingleton()->Release();
 }
 
 void TileMapTool::Update()
@@ -108,37 +83,6 @@ void TileMapTool::Update()
     if (stageBt_01)    stageBt_01->Update();
     if (stageBt_02)    stageBt_02->Update();
     if (stageBt_03)    stageBt_03->Update();
-
-    if (KeyManager::GetSingleton()->IsStayKeyDown(VK_CONTROL))
-    {
-        if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_F1))
-        {
-            Load(1);
-        }
-        else if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_F2))
-        {
-            Load(2);
-        }
-        else if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_F3))
-        {
-            Load(3);
-        }
-    }
-    else
-    {
-        if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_F1))
-        {
-            Save(1);
-        }
-        else if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_F2))
-        {
-            Save(2);
-        }
-        else if (KeyManager::GetSingleton()->IsOnceKeyDown(VK_F3))
-        {
-            Save(3);
-        }
-    }
 
     // 메인 영역 계산
     rcMain.left = 0;
@@ -162,13 +106,14 @@ void TileMapTool::Update()
 
             for (int i = 0; i < TILE_X * TILE_Y; i++)
             {
-                if (PtInRect(&(tileInfo[i].rcTile), g_ptMouse))
+                if (PtInRect(&(FileManager::tileInfo[i].rcTile), g_ptMouse))
                 {
                     //selectedFrameX = i % TILE_X;
                     //selectedFrameY = i / TILE_X;
 
-                    tileInfo[i].frameX = ptStartSelectedFrame.x;
-                    tileInfo[i].frameY = ptStartSelectedFrame.y;
+                    FileManager::tileInfo[i].frameX = ptStartSelectedFrame.x;
+                    FileManager::tileInfo[i].frameY = ptStartSelectedFrame.y;
+                    FileManager::tileInfo[i].type = (TILE_TYPE)(FileManager::tileInfo[i].frameX/2 + (FileManager::tileInfo[i].frameY/2 * TILE_TYPE::SIZE_OF_TILE_TYPE/2));
 
                     for (int j = 0; j <= ptEndSelectedFrame.y - ptStartSelectedFrame.y; j++)
                     {
@@ -177,8 +122,10 @@ void TileMapTool::Update()
                             if ((i % TILE_X) + k >= TILE_X) continue;
                             if ((i / TILE_X) + j >= TILE_Y) continue;
 
-                            tileInfo[i + j * TILE_X + k].frameX = ptStartSelectedFrame.x + k;
-                            tileInfo[i + j * TILE_X + k].frameY = ptStartSelectedFrame.y + j;
+                            FileManager::tileInfo[i + j * TILE_X + k].frameX = ptStartSelectedFrame.x + k;
+                            FileManager::tileInfo[i + j * TILE_X + k].frameY = ptStartSelectedFrame.y + j;
+                            FileManager::tileInfo[i + j * TILE_X + k].type
+                                = (TILE_TYPE)(FileManager::tileInfo[i + j * TILE_X + k].frameX / 2 + (FileManager::tileInfo[i + j * TILE_X + k].frameY / 2 * TILE_TYPE::SIZE_OF_TILE_TYPE / 2));
                         }
                     }
 
@@ -204,18 +151,6 @@ void TileMapTool::Update()
             ptStartSelectedFrame.y = posY / TILESIZE;
 
             ptSelected[0] = g_ptMouse;
-
-            //// 1) 모든 타일을 반복하면서 렉트충돌 확인
-            //for (int i = 0; i < SAMPLE_TILE_X * SAMPLE_TILE_Y; i++)
-            //{
-            //    if (PtInRect(&(sampleTileInfo[i].rcTile), g_ptMouse))
-            //    {
-            //        ptStartSelectedFrame.x = i % SAMPLE_TILE_X;
-            //        ptStartSelectedFrame.y = i / SAMPLE_TILE_X;
-
-            //        break;
-            //    }
-            //}
         }
         else if (KeyManager::GetSingleton()->IsOnceKeyUp(VK_LBUTTON))
         {
@@ -241,19 +176,28 @@ void TileMapTool::Update()
             mainChangeOn = false;
         }
     }
-
 }
 
 void TileMapTool::Render(HDC hdc)
 {
+    //배경 덮기
     if (mainChangeOn == true)
     {
-        PatBlt(hdc, 0, 0,
-            TILEMAPTOOLSIZE_X, TILEMAPTOOLSIZE_Y, WHITENESS);
-
+        PatBlt(hdc, 0, 0, TILEMAPTOOLSIZE_X, TILEMAPTOOLSIZE_Y, WHITENESS);
     }
 
-    // 샘플타일 전체
+    //메인 타일 그리기
+    for (int i = 0; i < TILE_X * TILE_Y; i++)
+    {
+        sampleTile->FrameRender(hdc,
+            FileManager::tileInfo[i].rcTile.left,
+            FileManager::tileInfo[i].rcTile.top,
+            FileManager::tileInfo[i].frameX,
+            FileManager::tileInfo[i].frameY,
+            false, 1.5);
+    }
+
+    // 샘플타일 그리기
     sampleTile->Render(hdc, TILEMAPTOOLSIZE_X - sampleTile->GetWidth(), 0);
 
     // 선택 영역 표시
@@ -268,28 +212,13 @@ void TileMapTool::Render(HDC hdc)
     if (stageBt_01)    stageBt_01->Render(hdc);
     if (stageBt_02)    stageBt_02->Render(hdc);
     if (stageBt_03)    stageBt_03->Render(hdc);
-
-    if (mainChangeOn == true)
-    {
-        // 메인영역 전체
-        for (int i = 0; i < TILE_X * TILE_Y; i++)
-        {
-            sampleTile->FrameRender(hdc,
-                tileInfo[i].rcTile.left,
-                tileInfo[i].rcTile.top,
-                tileInfo[i].frameX,
-                tileInfo[i].frameY,
-                false, 1.5f);
-        }
-        mainChangeOn = false;
-    }
     
     // 선택된 타일
     if (ptStartSelectedFrame.x == ptEndSelectedFrame.x &&
         ptStartSelectedFrame.y == ptEndSelectedFrame.y)
     {
         sampleTile->FrameRender(hdc,
-            TILEMAPTOOLSIZE_X - sampleTile->GetWidth(),
+            TILEMAPTOOLSIZE_X - sampleTile->GetWidth() + 50,
             sampleTile->GetHeight() + 50,
             ptStartSelectedFrame.x, ptStartSelectedFrame.y, false, 3);
     }
@@ -300,8 +229,8 @@ void TileMapTool::Render(HDC hdc)
             for (int j = 0; j <= ptEndSelectedFrame.x - ptStartSelectedFrame.x; j++)
             {
                 sampleTile->FrameRender(hdc,
-                    TILEMAPTOOLSIZE_X - sampleTile->GetWidth() + (j * TILESIZE),
-                    sampleTile->GetHeight() + 50 + (i * TILESIZE),
+                    TILEMAPTOOLSIZE_X - sampleTile->GetWidth() + 50,
+                    sampleTile->GetHeight() + 50,
                     ptStartSelectedFrame.x + j, ptStartSelectedFrame.y + i, false, 1);
 
             }
@@ -309,64 +238,8 @@ void TileMapTool::Render(HDC hdc)
     }
 }
 
-/*
-    실습1. F1, F2, F3  각 키를 눌렀을 때
-    Save/saveMapData1.map, Save/saveMapData2.map, Save/saveMapData3.map
-    각 각 파일에 저장될 수 있도록 코드 구현
-
-    실습2. 로드는 Ctrl + F1, ...
-*/
-
-void TileMapTool::Save(int stageNum)
-{
-    string fileName = "Save/saveMapData";  // 1.map";
-    fileName += to_string(stageNum) + ".map";
-
-    DWORD writtenBytes;
-    HANDLE hFile = CreateFile(fileName.c_str(), GENERIC_WRITE, 0,
-        0, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-    /*void**/
-    WriteFile(hFile, tileInfo, sizeof(TILE_INFO) * TILE_X * TILE_Y,
-        &writtenBytes, NULL);
-
-    CloseHandle(hFile);
-}
-
-void TileMapTool::Load(int stageNum)
-{
-    string fileName = "Save/saveMapData";  // 1.map";
-    fileName += to_string(stageNum) + ".map";
-
-    DWORD readBytes;
-    HANDLE hFile = CreateFile(fileName.c_str(), GENERIC_READ, 0,
-        0, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-    /*void**/
-    if (ReadFile(hFile, tileInfo, sizeof(TILE_INFO) * TILE_X * TILE_Y,
-        &readBytes, NULL))
-    {
-
-    }
-    else
-    {
-        MessageBox(g_hWnd, "저장파일 로드 실패", "실패", MB_OK);
-    }
-
-    CloseHandle(hFile);
-}
-
 void TileMapTool::SetChangeStage(int key)
 {
-    btnSave->SetFunc(Save, key);
-    btnLoad->SetFunc(Load, key);
+    btnSave->SetFunc(FileManager::GetSingleton()->SaveStage, key);
+    btnLoad->SetFunc(FileManager::GetSingleton()->LoadStage, key);
 }
-
-/*
-    실습1. F1, F2, F3 각 키를 눌렀을 때
-    Save/saveMapData1
-    Save/saveMapData2
-    Save/saveMapData3
-    각각에 저장이 될 수 있도록 코드 구현
-
-    실습2.
-    로드는 Ctrl + F1, Ctrl + F2, Ctrl + F3...
-*/

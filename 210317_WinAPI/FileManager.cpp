@@ -2,7 +2,8 @@
 #include "FileManager.h"
 #include "Image.h"
 #include "CommonFunction.h"
-#include "TileMapTool.h"
+
+TILE_INFO FileManager::tileInfo[TILE_X * TILE_Y];
 
 HRESULT FileManager::Init()
 {
@@ -27,6 +28,15 @@ HRESULT FileManager::Init()
                 tileInfo[i * TILE_X + j].rcTile.top + (TILESIZE * 1.5);
         }
     }
+    if (g_currentMenu != MENU::CONSTRUCTION) {
+        gap.x = BATTLE_SCENE_START_X;
+        gap.y = BATTLE_SCENE_START_Y;
+    }
+    else
+    {
+        gap.x = 0;
+        gap.y = 0;
+    }
 
     return S_OK;
 }
@@ -49,15 +59,15 @@ void FileManager::Render(HDC hdc)
 {
     PatBlt(hdc, 0, 0, TILEMAPTOOLSIZE_X, TILEMAPTOOLSIZE_Y, WHITENESS);
 
-    if (backBtScene)
+    /*if (backBtScene && g_currentMenu != MENU::CONSTRUCTION)
     {
         backBtScene->Render(hdc);
-    }
+    }*/
     for (int i = 0; i < TILE_X * TILE_Y; i++)
     {
         sampleTile->FrameRender(hdc,
-            tileInfo[i].rcTile.left + 50,
-            tileInfo[i].rcTile.top + 50,
+            tileInfo[i].rcTile.left,
+            tileInfo[i].rcTile.top,
             tileInfo[i].frameX,
             tileInfo[i].frameY,
             false, 1.5);
@@ -87,7 +97,16 @@ void FileManager::LoadStage(int stageNum)
     /*void**/
     if (ReadFile(hFile, tileInfo, sizeof(TILE_INFO) * TILE_X * TILE_Y, &readBytes, NULL))
     {
-
+        if(g_currentMenu != MENU::CONSTRUCTION)
+        { 
+            for (int i = 0; i < TILE_X * TILE_Y; i++)
+            {
+                tileInfo[i].rcTile.left += BATTLE_SCENE_START_X;
+                tileInfo[i].rcTile.right += BATTLE_SCENE_START_X;
+                tileInfo[i].rcTile.top += BATTLE_SCENE_START_Y;
+                tileInfo[i].rcTile.bottom += BATTLE_SCENE_START_Y;
+            }
+        }
     }
     else
     {

@@ -12,16 +12,17 @@ class FileManager : public Singleton<FileManager>
 private:
 	Image* sampleTile;
 	Image* backBtScene;
-	TILE_INFO tileInfo[TILE_X * TILE_Y];
 
-	TileMapTool* tileMapTool;
+	POINT gap;
 	RECT rcMain;
 public:
+	static TILE_INFO tileInfo[TILE_X * TILE_Y];
+
 	HRESULT Init(); 
 	void Release();
 	void Update();
 	void Render(HDC hdc);
 
-	void SaveStage(int stageNum);
-	void LoadStage(int stageNum);
+	static void SaveStage(int stageNum);
+	static void LoadStage(int stageNum);
 };

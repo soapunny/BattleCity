@@ -1,5 +1,6 @@
 #pragma once
 #include "CollisionManager.h"
+#include "FileManager.h"
 #include "Missile.h"
 #include "Image.h"
 #include <algorithm>
@@ -30,9 +31,9 @@ Tank* CollisionManager::RemoveTank(Tank* tank)
     return tank;
 }
 
-void CollisionManager::AddItem(Item* item)
+void CollisionManager::RegisterVItem(vector<Item*>* vItemStorage)
 {
-    vItemStorage->push_back(item);
+    this->vItemStorage = vItemStorage;
 }
 
 Item* CollisionManager::RemoveItem(Item* item)
@@ -65,8 +66,10 @@ void CollisionManager::CheckCollision()
         CheckTankTankCollision();
 
         //탱크와 타일의 충돌 체크
+        CheckTankTileCollision();
 
         //미사일과 타일과의 충돌 체크
+        CheckMissileTileCollision();
 
         //플레이어와 아이템과의 충돌 체크
     }
@@ -284,6 +287,99 @@ void CollisionManager::CheckRect(Tank* tank1, Tank* tank2)
     }
 }
 
+//탱크 vs 타일 충돌 체크
+void CollisionManager::CheckTankTileCollision()
+{
+    for (int i = 0; i < TILE_X * TILE_Y; i++){
+        if( (FileManager::tileInfo+i)->type != TILE_TYPE::GRASS_TILE && (FileManager::tileInfo + i)->type != TILE_TYPE::ROAD_TILE && (FileManager::tileInfo + i)->type != TILE_TYPE::ICE_TILE )
+        {
+            for(Tank* tank : *vTankStorage)
+            {
+                if( tank->GetAlive() && IntersectRect(&tmpRect, &((FileManager::tileInfo + i)->rcTile), &(tank->GetShape()) ) )
+                {
+                    float xGap = tmpRect.right - tmpRect.left;
+                    float yGap = tmpRect.bottom - tmpRect.top;
+                    //TODO 탱크가 뒤로 밀려나게 처리
+                    if (tank->GetPos().x <= (FileManager::tileInfo + i)->rcTile.left && yGap >= xGap)
+                    {
+                        tank->SetPos(FPOINT{ tank->GetPos().x - xGap, tank->GetPos().y });
+                    }
+                    else if (tank->GetPos().x >= (FileManager::tileInfo + i)->rcTile.right && yGap >= xGap)
+                    {
+                        tank->SetPos(FPOINT{ tank->GetPos().x + xGap, tank->GetPos().y });
+                    }
+                    else if (tank->GetPos().y <= (FileManager::tileInfo + i)->rcTile.top && yGap <= xGap)
+                    {
+                        tank->SetPos(FPOINT{ tank->GetPos().x, tank->GetPos().y - yGap });
+                    }
+                    else if (tank->GetPos().y >= (FileManager::tileInfo + i)->rcTile.bottom && yGap <= xGap)
+                    {
+                        tank->SetPos(FPOINT{ tank->GetPos().x, tank->GetPos().y + yGap });
+                    }
+                }
+            }        
+        }
+        else  if ((FileManager::tileInfo + i)->type == TILE_TYPE::ICE_TILE)
+        {
+            for (Tank* tank : *vTankStorage)
+            {
+                if (tank->GetAlive())
+                {
+                    if (IntersectRect(&tmpRect, &((FileManager::tileInfo + i)->rcTile), &(tank->GetShape())))
+                    {
+                        //TODO 탱크가 미끄러지게 처리
+                        tank->ChangeIntoSlipperyState();
+                    }
+                }
+            }
+        }
+        else  if ((FileManager::tileInfo + i)->type == TILE_TYPE::ROAD_TILE || (FileManager::tileInfo + i)->type == TILE_TYPE::GRASS_TILE)
+        {
+            for (Tank* tank : *vTankStorage)
+            {
+                if (tank->GetAlive())
+                {
+                    if (IntersectRect(&tmpRect, &((FileManager::tileInfo + i)->rcTile), &(tank->GetShape())))
+                    {
+                        float xGap = abs(tmpRect.right - tmpRect.left);
+                        float yGap = abs(tmpRect.bottom - tmpRect.top);
+                        if(xGap >= tank->GetSize()/2 && yGap >= tank->GetSize()/2){
+                            //TODO 탱크가 멈추게 처리
+                            tank->ChangeIntoNormalState();
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+//미사일 vs 타일 충돌 체크
+void CollisionManager::CheckMissileTileCollision()
+{
+    for (int i = 0; i < TILE_X * TILE_Y; i++) {
+        if ( (FileManager::tileInfo + i)->type == TILE_TYPE::BRICK_TILE || (FileManager::tileInfo + i)->type == TILE_TYPE::WALL_TILE || (FileManager::tileInfo + i)->type == TILE_TYPE::COMMAND_CENTER_TILE)
+        {
+            for (auto mMissilePair : mMissileStorage)
+            {
+                for (auto lpMissile : *mMissilePair.second)
+                {
+                    if (lpMissile->GetIsFired() && IntersectRect(&tmpRect, &lpMissile->GetShape(), &(FileManager::tileInfo + i)->rcTile) )
+                    {
+                        if( (FileManager::tileInfo + i)->type == TILE_TYPE::BRICK_TILE )
+                        {
+                            (FileManager::tileInfo + i)->type = TILE_TYPE::ROAD_TILE;
+                            (FileManager::tileInfo + i)->frameX = 0;
+                            (FileManager::tileInfo + i)->frameY = 0;
+                        }
+                        lpMissile->SetIsFired(false);
+                        AddCollisionBuffer(FPOINT{ lpMissile->GetPos().x, lpMissile->GetPos().y });
+                    }
+                }
+            }
+        }
+    }
+}
 
 
 HRESULT CollisionManager::Init()
@@ -306,6 +402,11 @@ void CollisionManager::Render(HDC hdc)
         if (collisionData.explosionType == EXPLOSION_TYPE::HUGE_EXPLOSION)
             bigBoomEffect->FrameRender(hdc, collisionData.pos.x, collisionData.pos.y, collisionData.currFrame.x, collisionData.currFrame.y, true);
     }
+}
+
+void CollisionManager::Release()
+{
+    ReleaseSingleton();
 }
 
 

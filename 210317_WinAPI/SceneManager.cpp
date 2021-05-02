@@ -1,5 +1,9 @@
 #pragma once
 #include "SceneManager.h"
+#include "BattleScene.h"
+#include "MenuScene.h"
+#include "LoadingScene.h"
+#include "TileMapTool.h"
 #include "GameNode.h"
 
 GameNode* SceneManager::currentScene = nullptr;
@@ -8,6 +12,13 @@ GameNode* SceneManager::readyScene = nullptr;
 
 HRESULT SceneManager::Init()
 {
+    SceneManager::GetSingleton()->AddScene("BattleScene", new BattleScene());
+    SceneManager::GetSingleton()->AddScene("MenuScene", new MenuScene());
+    SceneManager::GetSingleton()->AddScene("LoadingScene", new LoadingScene());
+    SceneManager::GetSingleton()->AddScene("TileMapTool", new TileMapTool());
+
+    SceneManager::GetSingleton()->ChangeScene("MenuScene");
+
     return S_OK;
 }
 

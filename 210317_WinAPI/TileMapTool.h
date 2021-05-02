@@ -12,9 +12,6 @@ private:
 	TILE_INFO sampleTileInfo[SAMPLE_TILE_X * SAMPLE_TILE_Y];
 	RECT rcSample;
 
-	// 메인타일의 정보
-	static TILE_INFO tileInfo[TILE_X * TILE_Y];
-
 	RECT rcMain;
 
 	POINT ptStartSelectedFrame;
@@ -40,9 +37,6 @@ public:
 	virtual void Release();
 	virtual void Update();
 	virtual void Render(HDC hdc);
-
-	static void Save(int stageNum);
-	static void Load(int stageNum);
 
 	static void SetChangeStage(int key);
 

@@ -7,7 +7,7 @@ HRESULT PurpleTank::Init()
 {
 	pos.x = TILESIZE * TILE_X / 2;
 	pos.y = TILESIZE * TILE_Y / 2;
-	size = 50;
+	size = 48;
 	powerLevel = 1;
 	name = "≈ ≈©" + to_string(tankCnt++);
 	moveSpeed = 5;

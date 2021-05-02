@@ -1,10 +1,6 @@
 #pragma once
 #include "MainGame.h"
 #include "Image.h"
-#include "BattleScene.h"
-#include "MenuScene.h"
-#include "LoadingScene.h"
-#include "TileMapTool.h"
 #include "SceneManager.h"
 #include <ctime>
 
@@ -15,6 +11,7 @@ HRESULT MainGame::Init()
 
 	KeyManager::GetSingleton()->Init();
 	ImageManager::GetSingleton()->Init();
+	SceneManager::GetSingleton()->Init();
 
 	// 이미지를 미리 로드한다
 	ImageManager::GetSingleton()->AddImage("Tank",
@@ -61,23 +58,9 @@ HRESULT MainGame::Init()
 	ImageManager::GetSingleton()->AddImage("stage2", "Image/stageBt_02.bmp",100, 92, 1, 2);
 	ImageManager::GetSingleton()->AddImage("stage3", "Image/stageBt_03.bmp",100, 92, 1, 2);
 
-	ImageManager::GetSingleton()->AddImage(
-		"샘플타일", "Image/SamlpTile2.bmp", (512), (64),        
-		SAMPLE_TILE_X, SAMPLE_TILE_Y, true, RGB(255, 0, 255));
-	ImageManager::GetSingleton()->AddImage(
-		"회색배경타일", "Image/loadImage.bmp", (1024), (968),       
-		SAMPLE_TILE_X + 200, SAMPLE_TILE_Y + 200);
-
-	ImageManager::GetSingleton()->AddImage(
-		"전투배경", "Image/loadImage.bmp", (1024), (968),        
-		SAMPLE_TILE_X+200, SAMPLE_TILE_Y+200);
-
-	SceneManager::GetSingleton()->AddScene("BattleScene", new BattleScene());
-	SceneManager::GetSingleton()->AddScene("MenuScene", new MenuScene());
-	SceneManager::GetSingleton()->AddScene("LoadingScene", new LoadingScene());
-	SceneManager::GetSingleton()->AddScene("TileMapTool", new TileMapTool());
-
-	SceneManager::GetSingleton()->ChangeScene("MenuScene");
+	ImageManager::GetSingleton()->AddImage("샘플타일", "Image/SamlpTile2.bmp", (256), (128), SAMPLE_TILE_X, SAMPLE_TILE_Y, true, RGB(255, 0, 255));
+	ImageManager::GetSingleton()->AddImage("회색배경타일", "Image/loadImage.bmp", (1024), (968));
+	ImageManager::GetSingleton()->AddImage("전투배경", "Image/loadImage.bmp", (1024), (968));
 
 	isInited = true;
 

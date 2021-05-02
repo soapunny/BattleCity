@@ -6,9 +6,9 @@
 
 HRESULT GreenTank::Init()
 {
-	pos.x = TILESIZE * TILE_X / 2 + 100;
-	pos.y = TILESIZE * TILE_Y / 2 + 100;
-	size = 50;
+	pos.x = BATTLE_SCENE_START_X + 50;
+	pos.y = BATTLE_SCENE_END_Y - 25;
+	size = 48;
 	powerLevel = 1;
 	name = "≈ ≈©" + to_string(tankCnt++);
 	moveSpeed = 5;

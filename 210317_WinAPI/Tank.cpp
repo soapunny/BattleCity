@@ -62,6 +62,8 @@ void Tank::Update()
 		FireRandom();
 	}
 
+	if (tankState == TANK_STATE::SLIPPERY_STATE)
+		GetSlipped();
 	ChangeBarrel(moveDirection);
 	shape = GetRectToCenter(pos.x, pos.y, size, size);
 	//missileManager->Update();
@@ -418,6 +420,43 @@ bool Tank::CheckBorderline()
 		isOnTheLine = false;
 	}
 	return isOnTheLine;
+}
+
+void Tank::GetSlipped()
+{
+	switch(moveDirection)
+	{
+	case MOVE_DIRECTION::UP_WARD:
+		pos.y -= moveSpeed*3;
+		if (pos.y < BATTLE_SCENE_START_Y + size / 2)
+		{
+			pos.y = BATTLE_SCENE_START_Y + size / 2;
+		}
+		break;
+	case MOVE_DIRECTION::DOWN_WARD:
+		pos.y += moveSpeed*3;
+		if (pos.y > BATTLE_SCENE_END_Y - size / 2)
+		{
+			pos.y = BATTLE_SCENE_END_Y - size / 2;
+		}
+		break;
+	case MOVE_DIRECTION::LEFT_WARD:
+		pos.x -= moveSpeed*3;
+		if (pos.x < BATTLE_SCENE_START_X + size / 2)
+		{
+			pos.x = BATTLE_SCENE_START_X + size / 2;
+		}
+		break;
+	case MOVE_DIRECTION::RIGHT_WARD:
+		pos.x += moveSpeed*3;
+		if (pos.x > BATTLE_SCENE_END_X - size / 2)
+		{
+			pos.x = BATTLE_SCENE_END_X - size / 2;
+		}
+		break;
+	default:
+		return;
+	}
 }
 
 

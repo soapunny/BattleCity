@@ -50,7 +50,7 @@ public:
 	Missile* RemoveMissiles(string key);
 	void RegisterVTank(vector<Tank*>* vTankStorage);
 	Tank* RemoveTank(Tank* tank);
-	void AddItem(Item* item);
+	void RegisterVItem(vector<Item*>* vItemStorage);
 	Item* RemoveItem(Item* item);
 
 	inline void SetPlayer1(Tank* player1) { this->player1 = player1; }
@@ -63,6 +63,8 @@ public:
 	void CheckMissileTankCollision(int i);
 	void CheckMissileMissileCollision();
 	void CheckTankTankCollision();
+	void CheckTankTileCollision();
+	void CheckMissileTileCollision();
 	void ShowAnimation();
 
 	inline void AddCollisionBuffer(FPOINT pos, EXPLOSION_TYPE explosionType = EXPLOSION_TYPE::SMALL_EXPLOSION)
@@ -72,5 +74,6 @@ public:
 
 	HRESULT Init();
 	void Render(HDC hdc);
+	void Release();
 };
 

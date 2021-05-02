@@ -24,6 +24,7 @@ void BattleScene::Release()
 {
 	SAFE_RELEASE(tankManager);
 	FileManager::GetSingleton()->Release();
+	CollisionManager::GetSingleton()->Release();
 }
 
 void BattleScene::Update()
@@ -45,7 +46,7 @@ void BattleScene::Update()
 		if (stageNum >= STAGE_TYPE::END_OF_STAGE_TYPE)
 			stageNum = STAGE_TYPE::FIRST_STAGE;
 
-		FileManager::GetSingleton()->LoadStage(stageNum);
+		FileManager::GetSingleton()->LoadStage(stageNum + 1);
 	}
 
 	CollisionManager::GetSingleton()->CheckCollision();
